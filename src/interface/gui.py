@@ -364,7 +364,7 @@ class Ui_pyCBIR(object):
         self.comboBox.addItem("lenet")
         self.comboBox.addItem("nasnet")
         self.comboBox.addItem("inception_resnet")
-        self.comboBox.addItem("vgg")
+        self.comboBox.addItem("vgg16")
         self.comboBox.addItem("inception_v4")
         self.comboBox.setGeometry(QtCore.QRect(130, 50, 120, 25))
 
@@ -434,12 +434,12 @@ class Ui_pyCBIR(object):
             cwd = os.getcwd()
             lr =  self.lineEdit2.text() 
             lr = lr.replace('.', '')
-            file_name = self.comboBox.currentText()+'_epochs_'+self.lineEdit1.text()+'_learningRate_'+lr+'.ckpt'
+            file_name = self.comboBox.currentText()+'_epochs_'+self.lineEdit1.text()+'_learningRate_'+lr+'.h5'
             #file_name = 'model.ckpt'
             if self.lineEdit1.text() is '0':
-                self.path_cnn_trained = QFileDialog.getOpenFileName(None,'Select the file of the pre-trained CNN: ', cwd,"Model Files (*.ckpt)")
+                self.path_cnn_trained = QFileDialog.getOpenFileName(None,'Select the file of the pre-trained CNN: ', cwd,"Model Files (*.h5)")
             else:    
-                self.path_cnn_trained = QFileDialog.getSaveFileName(None,'Save File',file_name,filter = 'ckpt (*.ckpt)')[0]
+                self.path_cnn_trained = QFileDialog.getSaveFileName(None,'Save File',file_name,filter = 'h5 (*.h5)')[0]
             
         elif self.rb2.isChecked():
             self.feature_extraction_method = 'fine_tuning_'+self.comboBox.currentText()

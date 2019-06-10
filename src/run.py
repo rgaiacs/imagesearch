@@ -5,6 +5,7 @@ Created on 30 de aug de 2016
 '''
 import sys
 sys.path.insert(0, '..')
+
 import matplotlib
 matplotlib.use("Agg")
 import numpy as np
@@ -13,14 +14,17 @@ from skimage.io import imread
 from matplotlib import pyplot as plt
 from matplotlib.gridspec import GridSpec
 import os
+import timeit
+import itertools
+
 from src.cnn.Parameters import Parameters
 from src.cnn import training_fine_tuning_cnn
 from src.cnn import feature_extraction_after_fine_tuning
 from src.cnn import feature_extraction_cnn_pretrained
 from src.similarity import searching
 from src.signatures import feature_extraction as fe
-import timeit
-import itertools
+from src.cnn import keras_lenet
+from src.cnn import keras_pre_trained
 #---------------------------------------------------------------------------------------------------------------#
 '''
 pyCBIR
@@ -214,7 +218,8 @@ def cnn_feature_extraction(name_images_database,labels_database,name_images_quer
             start = timeit.default_timer()
             
             if(feature_extraction_method == 'lenet'):#option to train the LeNet
-                training_fine_tuning_cnn.train_lenet(parameters)
+                #training_fine_tuning_cnn.train_lenet(parameters)
+                keras_lenet.train_lenet(parameters)
             elif(feature_extraction_method[0:11] == 'fine_tuning'):
                 training_fine_tuning_cnn.fine_tuning_cnn(parameters)
                 
@@ -257,7 +262,8 @@ def cnn_feature_extraction(name_images_database,labels_database,name_images_quer
         elif(do_searching_processing):
             
             if(feature_extraction_method == 'lenet'):
-                feature_vectors_database, fname_database, labels_database,probability_vector = feature_extraction_after_fine_tuning.features_extraction_lenet(parameters)
+                #feature_vectors_database, fname_database, labels_database,probability_vector = feature_extraction_after_fine_tuning.features_extraction_lenet(parameters)
+                feature_vectors_database, fname_database, labels_database,probability_vector = keras_lenet.features_extraction_lenet(parameters)
             elif(feature_extraction_method[0:11] == 'fine_tuning'):
                 feature_vectors_database, fname_database, labels_database,probability_vector = feature_extraction_after_fine_tuning.features_extraction_cnn(parameters)
                     
@@ -279,7 +285,8 @@ def cnn_feature_extraction(name_images_database,labels_database,name_images_quer
             parameters.LABELS = labels_query
             
             if(feature_extraction_method == "lenet"):
-                feature_vectors_query, fname_query, labels_query,probability_vector = feature_extraction_after_fine_tuning.features_extraction_lenet(parameters)
+                #feature_vectors_query, fname_query, labels_query,probability_vector = feature_extraction_after_fine_tuning.features_extraction_lenet(parameters)
+                feature_vectors_query, fname_query, labels_query,probability_vector = keras_lenet.features_extraction_lenet(parameters)
             elif(feature_extraction_method[0:11] == "fine_tuning"):
                 feature_vectors_query, fname_query, labels_query, probability_vector = feature_extraction_after_fine_tuning.features_extraction_cnn(parameters)
         
@@ -316,11 +323,8 @@ def cnn_feature_extraction(name_images_database,labels_database,name_images_quer
         else:
             
             if(feature_extraction_method[0:10] == 'pretrained'):
-                feature_vectors_database, fname_database, labels_database = feature_extraction_cnn_pretrained.feature_extraction(name_images_database,labels_database,path_cnn_pre_trained, feature_extraction_method)
-            #elif(feature_extraction_method == 'pretrained_vgg'):
-            #    feature_vectors_database, fname_database, labels_database = feature_extraction_cnn_pretrained.features_extraction_vgg(name_images_database,labels_database,path_cnn_pre_trained, feature_extraction_method)
-            #elif(feature_extraction_method == 'pretrained_nasnet'):
-            #    feature_vectors_database, fname_database, labels_database = feature_extraction_cnn_pretrained.features_extraction_nasnet(name_images_database,labels_database,path_cnn_pre_trained, feature_extraction_method)
+                #feature_vectors_database, fname_database, labels_database = feature_extraction_cnn_pretrained.feature_extraction(name_images_database,labels_database,path_cnn_pre_trained, feature_extraction_method)
+                feature_vectors_database, fname_database, labels_database = keras_pre_trained.feature_extraction(name_images_database,labels_database,path_cnn_pre_trained, feature_extraction_method)
             
             #Calculating the time of the extraction of features for the whole database
             stop = timeit.default_timer()
@@ -334,11 +338,8 @@ def cnn_feature_extraction(name_images_database,labels_database,name_images_quer
         parameters.LABELS = labels_query
         
         if(feature_extraction_method[0:10] == 'pretrained'):
-            feature_vectors_query, fname_query, labels_query  = feature_extraction_cnn_pretrained.feature_extraction(name_images_query,labels_query,path_cnn_pre_trained, feature_extraction_method)
-        #elif(feature_extraction_method == 'pretrained_vgg'):
-        #    feature_vectors_query, fname_query, labels_query  = feature_extraction_cnn_pretrained.features_extraction_vgg(name_images_query,labels_query,path_cnn_pre_trained, feature_extraction_method)
-        #elif(feature_extraction_method == 'pretrained_nasnet'):
-        #    feature_vectors_query, fname_query, labels_query  = feature_extraction_cnn_pretrained.features_extraction_nasnet(name_images_query,labels_query,path_cnn_pre_trained, feature_extraction_method)
+            #feature_vectors_query, fname_query, labels_query  = feature_extraction_cnn_pretrained.feature_extraction(name_images_query,labels_query,path_cnn_pre_trained, feature_extraction_method)
+            feature_vectors_query, fname_query, labels_query  = keras_pre_trained.feature_extraction(name_images_query,labels_query,path_cnn_pre_trained, feature_extraction_method)
         
         return fname_database, feature_vectors_database, labels_database, fname_query, feature_vectors_query, labels_query, time_of_extraction_features, train_time,None, None
     
