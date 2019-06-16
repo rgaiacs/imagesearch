@@ -56,7 +56,7 @@ def create_model(feature_extraction_method):
         input_image = 224
     elif(feature_extraction_method == 'pretrained_inception_resnet'):
         model = inception_resnet.InceptionResNetV2(weights='imagenet', include_top=True)
-        layer_name = 'PreLogitsFlatten'
+        layer_name = 'avg_pool'
         input_image = 299
     elif(feature_extraction_method == 'pretrained_nasnet'):
         model = nasnet.NASNetLarge(weights='imagenet', include_top=True)
@@ -74,9 +74,8 @@ def feature_extraction(name_images,labels,path_model,feature_extraction_method):
     intermediate_layer_model, input_img = create_model(feature_extraction_method)
     features = []
     
-    if(feature_extraction_method == 'pretrained_vgg16'):
-        for name in name_images:
-            features.append(extract_feature_one_image(name, intermediate_layer_model,feature_extraction_method,input_img))
-    
+    for name in name_images:
+        features.append(extract_feature_one_image(name, intermediate_layer_model,feature_extraction_method,input_img))
+
     features = np.asarray(features)
     return features, name_images, labels
