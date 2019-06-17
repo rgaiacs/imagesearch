@@ -10,4 +10,5 @@ Search for scientific images using deep learning
   - *output*: keep models and visualizations
   - *query*: images used as query to the model
   
-  
+- Run main file to open user interface:
+  - >> python pycbir.py  
