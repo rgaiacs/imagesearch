@@ -455,16 +455,19 @@ class Ui_pyCBIR(object):
 
         elif self.rb2.isChecked():
             self.feature_extraction_method = 'fine_tuning_'+self.comboBox.currentText()
-            QMessageBox.information(None,'pyCBIR', 'Now you have to choose the pre-trained file.')
-            cwd = os.getcwd()
-            self.path_cnn_pre_trained = QFileDialog.getOpenFileName(None,'Select the file of the pre-trained CNN: ', cwd,"Model Files (*.ckpt)")
+
+            if self.feature_extraction_method == 'fine_tuning_lenet':
+                QMessageBox.information(None,'pyCBIR', 'Now you have to choose the pre-trained file.')
+                cwd = os.getcwd()
+                self.path_cnn_pre_trained = QFileDialog.getOpenFileName(None,'Select the file of the pre-trained CNN: ', cwd,"Model Files (*.ckpt)")
             self.list_of_parameters = [self.lineEdit2.text(),self.lineEdit1.text()]#learning rate and epochs
             self.mySubwindow.close()
         else:
             self.feature_extraction_method = 'pretrained_'+self.comboBox.currentText()
-            QMessageBox.information(None,'pyCBIR', 'Now you have to choose the pre-trained file.')
-            cwd = os.getcwd()
-            self.path_cnn_pre_trained = QFileDialog.getOpenFileName(None,'Select the file of the pre-trained CNN: ', cwd,"Model Files (*.ckpt)")
+            if self.feature_extraction_method == 'pretrained_lenet':
+                QMessageBox.information(None,'pyCBIR', 'Now you have to choose the pre-trained file.')
+                cwd = os.getcwd()
+                self.path_cnn_pre_trained = QFileDialog.getOpenFileName(None,'Select the file of the pre-trained CNN: ', cwd,"Model Files (*.ckpt)")
             self.list_of_parameters = [self.lineEdit2.text(),self.lineEdit1.text()]#learning rate and epochs
             self.mySubwindow.close()
 
