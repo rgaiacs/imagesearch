@@ -129,27 +129,27 @@ class Ui_pyCBIR(object):
 
         self.retranslateUi(pyCBIR)
         QtCore.QMetaObject.connectSlotsByName(pyCBIR)
-        
+
         #variables
         self.feature_extraction_method = ''
         self.similarity_metric = ''
         self.list_of_parameters = []
         self.path_cnn_pre_trained = ''
         self.path_cnn_trained = ''
-        
+
         #features
         self.radioButton.clicked.connect(self.radio_clicked)
         self.radioButton_2.clicked.connect(self.radio2_clicked)
         self.radioButton_4.clicked.connect(self.radio4_clicked)
         self.radioButton_5.clicked.connect(self.radio5_clicked)
         self.radioButton_6.clicked.connect(self.radio6_clicked)
-        
+
         #metrics
         self.radioButton_7.clicked.connect(self.radio7_clicked)
-        
+
         #output
         self.pushButton_2.clicked.connect(self.returnPathOutput)
-        
+
         #data
         self.pushButton_3.clicked.connect(self.loadDatabasePath)
         self.pushButton_4.clicked.connect(self.loadRetrievalPath)
@@ -158,16 +158,16 @@ class Ui_pyCBIR(object):
 
         #run pyCBIR
         self.pushButton.clicked.connect(self.returnInformation)
-        
+
         #show results
-        
+
 
 #----------------------Output------------------------------#
     def returnPathOutput(self,pyCBIR):
         cwd = os.getcwd()
         file = QFileDialog.getExistingDirectory(None,'Select the path output', cwd)
         self.lineEdit_2.setText(str(file+'/'))
-        
+
 #----------------------Load data---------------------------#
     def loadDatabaseFile(self,pyCBIR):
         cwd = self.lineEdit_2.text()
@@ -177,7 +177,7 @@ class Ui_pyCBIR(object):
     def loadRetrievalFile(self,pyCBIR):
         file = QFileDialog.getOpenFileName(None,'Open file', self.lineEdit_5.text(),'CSV Files (*.csv)')
         self.lineEdit_6.setText(str(file[0]))
-        
+
     def loadDatabasePath(self,pyCBIR):
         cwd = self.lineEdit_2.text()
         file = QFileDialog.getExistingDirectory(None,'Open path', cwd)
@@ -187,17 +187,17 @@ class Ui_pyCBIR(object):
         file = QFileDialog.getExistingDirectory(None,'Open path', self.lineEdit_6.text())
         self.lineEdit_4.setText(str(file+'/'))
 
-#----------------------GLCM Parameters---------------------#    
+#----------------------GLCM Parameters---------------------#
     def radio_clicked(self,pyCBIR):
         self.mySubwindow=subwindow()
         self.mySubwindow.createWindow(200,120)
         self.mySubwindow.setWindowFlags(QtCore.Qt.CustomizeWindowHint)
-        
+
         self.label1_glcm = QtWidgets.QLabel(self.mySubwindow)
         self.label1_glcm.setGeometry(QtCore.QRect(55, 0, 100, 16))
         self.label1_glcm.setObjectName("label1")
         self.label1_glcm.setText("GLCM options")
-        
+
         #GLCM parameters
         self.label2_glcm = QtWidgets.QLabel(self.mySubwindow)
         self.label2_glcm.setGeometry(QtCore.QRect(0, 30, 70, 16))
@@ -207,8 +207,8 @@ class Ui_pyCBIR(object):
         self.lineEdit1_glcm.setGeometry(QtCore.QRect(75, 30, 30, 16))
         self.lineEdit1_glcm.setObjectName("lineEdit")
         self.lineEdit1_glcm.setText("1")
-        
-        
+
+
         self.label3_glcm = QtWidgets.QLabel(self.mySubwindow)
         self.label3_glcm.setGeometry(QtCore.QRect(0, 50, 110, 16))
         self.label3_glcm.setObjectName("label3")
@@ -217,7 +217,7 @@ class Ui_pyCBIR(object):
         self.lineEdit2_glcm.setGeometry(QtCore.QRect(115, 50, 30, 16))
         self.lineEdit2_glcm.setObjectName("lineEdit")
         self.lineEdit2_glcm.setText("16")
-        
+
         self.label4_glcm = QtWidgets.QLabel(self.mySubwindow)
         self.label4_glcm.setGeometry(QtCore.QRect(0, 70, 110, 16))
         self.label4_glcm.setObjectName("label4")
@@ -226,31 +226,31 @@ class Ui_pyCBIR(object):
         self.lineEdit3_glcm.setGeometry(QtCore.QRect(115, 70, 30, 16))
         self.lineEdit3_glcm.setObjectName("lineEdit")
         self.lineEdit3_glcm.setText("8")
-        
-        
+
+
         self.buttom_glcm = QtWidgets.QPushButton(self.mySubwindow)
         self.buttom_glcm.setText("Ok")
         self.buttom_glcm.setGeometry(QtCore.QRect(50, 100, 100, 16))
         self.buttom_glcm.clicked.connect(self.b_glcm)
-        
+
         self.mySubwindow.show()
-        
+
     def b_glcm(self):
         self.list_of_parameters = [self.lineEdit1_glcm.text(),self.lineEdit2_glcm.text(),self.lineEdit3_glcm.text()]
         self.mySubwindow.close()
 
 
-#----------------------HOG Parameters---------------------#    
+#----------------------HOG Parameters---------------------#
     def radio2_clicked(self,pyCBIR):
         self.mySubwindow=subwindow()
         self.mySubwindow.createWindow(200,90)
         self.mySubwindow.setWindowFlags(QtCore.Qt.CustomizeWindowHint)
-        
+
         self.label1_hog = QtWidgets.QLabel(self.mySubwindow)
         self.label1_hog.setGeometry(QtCore.QRect(55, 0, 100, 16))
         self.label1_hog.setObjectName("label1")
         self.label1_hog.setText("HOG options")
-        
+
         self.label2_hog = QtWidgets.QLabel(self.mySubwindow)
         self.label2_hog.setGeometry(QtCore.QRect(0, 30, 70, 16))
         self.label2_hog.setObjectName("label2")
@@ -259,8 +259,8 @@ class Ui_pyCBIR(object):
         self.lineEdit1_hog.setGeometry(QtCore.QRect(75, 30, 30, 16))
         self.lineEdit1_hog.setObjectName("lineEdit")
         self.lineEdit1_hog.setText("3")
-        
-        
+
+
         self.label3_hog = QtWidgets.QLabel(self.mySubwindow)
         self.label3_hog.setGeometry(QtCore.QRect(0, 50, 110, 16))
         self.label3_hog.setObjectName("label3")
@@ -269,30 +269,30 @@ class Ui_pyCBIR(object):
         self.lineEdit2_hog.setGeometry(QtCore.QRect(75, 50, 30, 16))
         self.lineEdit2_hog.setObjectName("lineEdit")
         self.lineEdit2_hog.setText("3")
-        
-        
+
+
         self.buttom_hog = QtWidgets.QPushButton(self.mySubwindow)
         self.buttom_hog.setText("Ok")
         self.buttom_hog.setGeometry(QtCore.QRect(50, 70, 100, 16))
         self.buttom_hog.clicked.connect(self.b_hog)
-        
+
         self.mySubwindow.show()
-        
+
     def b_hog(self):
         self.list_of_parameters = [self.lineEdit1_hog.text(),self.lineEdit2_hog.text()]
         self.mySubwindow.close()
 
-#----------------------LBP Parameters---------------------#    
+#----------------------LBP Parameters---------------------#
     def radio4_clicked(self,pyCBIR):
         self.mySubwindow=subwindow()
         self.mySubwindow.createWindow(200,90)
         self.mySubwindow.setWindowFlags(QtCore.Qt.CustomizeWindowHint)
-        
+
         self.label1_lbp = QtWidgets.QLabel(self.mySubwindow)
         self.label1_lbp.setGeometry(QtCore.QRect(55, 0, 100, 16))
         self.label1_lbp.setObjectName("label1")
         self.label1_lbp.setText("LBP options")
-        
+
         self.label2_lbp = QtWidgets.QLabel(self.mySubwindow)
         self.label2_lbp.setGeometry(QtCore.QRect(0, 30, 70, 16))
         self.label2_lbp.setObjectName("label2")
@@ -301,7 +301,7 @@ class Ui_pyCBIR(object):
         self.lineEdit1_lbp.setGeometry(QtCore.QRect(75, 30, 30, 16))
         self.lineEdit1_lbp.setObjectName("lineEdit")
         self.lineEdit1_lbp.setText("2")
-        
+
         self.label3_lbp = QtWidgets.QLabel(self.mySubwindow)
         self.label3_lbp.setGeometry(QtCore.QRect(0, 50, 110, 16))
         self.label3_lbp.setObjectName("label3")
@@ -310,26 +310,26 @@ class Ui_pyCBIR(object):
         self.lineEdit2_lbp.setGeometry(QtCore.QRect(75, 50, 30, 16))
         self.lineEdit2_lbp.setObjectName("lineEdit")
         self.lineEdit2_lbp.setText("16")
-        
-        
+
+
         self.buttom_lbp = QtWidgets.QPushButton(self.mySubwindow)
         self.buttom_lbp.setText("Ok")
         self.buttom_lbp.setGeometry(QtCore.QRect(50, 70, 100, 16))
         self.buttom_lbp.clicked.connect(self.b_lbp)
-        
+
         self.mySubwindow.show()
-        
+
     def b_lbp(self):
         self.list_of_parameters = [self.lineEdit1_lbp.text(),self.lineEdit2_lbp.text()]
         self.mySubwindow.close()
 
-      
-#----------------------CNN Parameters---------------------#    
+
+#----------------------CNN Parameters---------------------#
     def radio5_clicked(self,pyCBIR):
         self.mySubwindow=subwindow()
         self.mySubwindow.createWindow(400,200)
         self.mySubwindow.setWindowFlags(QtCore.Qt.CustomizeWindowHint)
-        
+
         self.groupBox_ = QtWidgets.QGroupBox(self.mySubwindow)
         self.groupBox_.setGeometry(QtCore.QRect(0, 20, 400, 20))
         self.groupBox_.setObjectName("groupBox_")
@@ -343,23 +343,23 @@ class Ui_pyCBIR(object):
         self.rb3 = QtWidgets.QRadioButton(self.groupBox_)
         self.rb3.setGeometry(QtCore.QRect(270, 0, 150, 20))
         self.rb3.setObjectName("rb3")
-        
+
         self.rb1.clicked.connect(self.rb1_clicked)
 
         self.rb2.clicked.connect(self.rb2_clicked)
 
         self.rb3.clicked.connect(self.rb3_clicked)
-        
-        
+
+
         self.rb1.setText("Train CNN")
         self.rb2.setText("Fine-Tuning CNN")
         self.rb3.setText("Pre-Trained CNN")
-        
+
         self.label_cnn_type = QtWidgets.QLabel(self.mySubwindow)
         self.label_cnn_type.setGeometry(QtCore.QRect(0, 55, 150, 16))
         self.label_cnn_type.setObjectName("label1")
         self.label_cnn_type.setText("CNN Architecture: ")
-                
+
         self.comboBox = QComboBox(self.mySubwindow)
         self.comboBox.addItem("lenet")
         self.comboBox.addItem("nasnet")
@@ -373,7 +373,7 @@ class Ui_pyCBIR(object):
         self.label1.setGeometry(QtCore.QRect(180, 0, 100, 16))
         self.label1.setObjectName("label1")
         self.label1.setText("CNN options")
-        
+
         #CNN parameters
         self.label2 = QtWidgets.QLabel(self.mySubwindow)
         self.label2.setGeometry(QtCore.QRect(0, 100, 50, 16))
@@ -382,9 +382,9 @@ class Ui_pyCBIR(object):
         self.lineEdit1 = QtWidgets.QLineEdit(self.mySubwindow)
         self.lineEdit1.setGeometry(QtCore.QRect(55, 100, 30, 16))
         self.lineEdit1.setObjectName("lineEdit")
-        self.lineEdit1.setText("0")
-        
-        
+        self.lineEdit1.setText("1")
+
+
         self.label3 = QtWidgets.QLabel(self.mySubwindow)
         self.label3.setGeometry(QtCore.QRect(120, 100, 100, 16))
         self.label3.setObjectName("label3")
@@ -393,7 +393,7 @@ class Ui_pyCBIR(object):
         self.lineEdit2.setGeometry(QtCore.QRect(210, 100, 50, 16))
         self.lineEdit2.setObjectName("lineEdit")
         self.lineEdit2.setText("0.1")
-        
+
         self.label4 = QtWidgets.QLabel(self.mySubwindow)
         self.label4.setGeometry(QtCore.QRect(290, 100, 70, 16))
         self.label4.setObjectName("label4")
@@ -402,73 +402,88 @@ class Ui_pyCBIR(object):
         self.lineEdit3.setGeometry(QtCore.QRect(340, 100, 50, 16))
         self.lineEdit3.setObjectName("lineEdit")
         self.lineEdit3.setText("0.04")
-        
+
         self.buttom_ok = QtWidgets.QPushButton(self.mySubwindow)
         self.buttom_ok.setText("Ok")
         self.buttom_ok.setGeometry(QtCore.QRect(180, 150, 70, 50))
         self.buttom_ok.clicked.connect(self.b_cnn)
-        
+
         self.mySubwindow.show()
-    
+
     def rb1_clicked(self,pyCBIR):
         self.lineEdit1.show()
         self.lineEdit2.show()
         self.lineEdit3.show()
-        
+
     def rb2_clicked(self,pyCBIR):
         self.lineEdit1.show()
         self.lineEdit2.show()
         self.lineEdit3.show()
-    
+
     def rb3_clicked(self,pyCBIR):
-        
+
         self.lineEdit1.hide()
         self.lineEdit2.hide()
         self.lineEdit3.hide()
-           
+
     def b_cnn(self):
-        
+
         if self.rb1.isChecked():
             self.feature_extraction_method = self.comboBox.currentText()
-            QMessageBox.information(None,'pyCBIR', 'Now you have to choose the place to save trained model.')
             cwd = os.getcwd()
-            lr =  self.lineEdit2.text() 
+            lr =  self.lineEdit2.text()
             lr = lr.replace('.', '')
             file_name = self.comboBox.currentText()+'_epochs_'+self.lineEdit1.text()+'_learningRate_'+lr+'.h5'
             #file_name = 'model.ckpt'
-            if self.lineEdit1.text() is '0':
-                self.path_cnn_trained = QFileDialog.getOpenFileName(None,'Select the file of the pre-trained CNN: ', cwd,"Model Files (*.h5)")
-            else:    
-                self.path_cnn_trained = QFileDialog.getSaveFileName(None,'Save File',file_name,filter = 'h5 (*.h5)')[0]
-            
+            try:
+                epocas = int(self.lineEdit1.text())
+                if epocas == 0:
+                    QMessageBox.information(None,'pyCBIR', 'Invalid number of epochs!')
+                    #self.buttom_ok.clicked.connect(self.radio5_clicked)
+                else:
+                    if self.feature_extraction_method == 'lenet':
+                        QMessageBox.information(None,'pyCBIR', 'Now you have to choose the place to save trained model.')
+                        self.path_cnn_trained = QFileDialog.getSaveFileName(None,'Save File',file_name,filter = 'h5 (*.h5)')[0]
+                    self.list_of_parameters = [self.lineEdit2.text(),self.lineEdit1.text()]#learning rate and epochs
+                    self.mySubwindow.close()
+            except ValueError:
+                QMessageBox.information(None,'pyCBIR', 'Invalid number of epochs!')
+            #if self.lineEdit1.text() is '0':
+            #    self.path_cnn_trained = QFileDialog.getOpenFileName(None,'Select the file of the pre-trained CNN: ', cwd,"Model Files (*.h5)")
+            #else:
+            #    self.path_cnn_trained = QFileDialog.getSaveFileName(None,'Save File',file_name,filter = 'h5 (*.h5)')[0]
+
         elif self.rb2.isChecked():
             self.feature_extraction_method = 'fine_tuning_'+self.comboBox.currentText()
             QMessageBox.information(None,'pyCBIR', 'Now you have to choose the pre-trained file.')
             cwd = os.getcwd()
             self.path_cnn_pre_trained = QFileDialog.getOpenFileName(None,'Select the file of the pre-trained CNN: ', cwd,"Model Files (*.ckpt)")
-            
+            self.list_of_parameters = [self.lineEdit2.text(),self.lineEdit1.text()]#learning rate and epochs
+            self.mySubwindow.close()
         else:
             self.feature_extraction_method = 'pretrained_'+self.comboBox.currentText()
             QMessageBox.information(None,'pyCBIR', 'Now you have to choose the pre-trained file.')
             cwd = os.getcwd()
             self.path_cnn_pre_trained = QFileDialog.getOpenFileName(None,'Select the file of the pre-trained CNN: ', cwd,"Model Files (*.ckpt)")
-            
-        print(self.feature_extraction_method) 
-           
-        self.list_of_parameters = [self.lineEdit2.text(),self.lineEdit1.text()]#learning rate and epochs
-        self.mySubwindow.close()
-        
-#----------------------Daisy Parameters---------------------#    
+            self.list_of_parameters = [self.lineEdit2.text(),self.lineEdit1.text()]#learning rate and epochs
+            self.mySubwindow.close()
+
+        print(self.feature_extraction_method)
+
+
+
+
+#----------------------Daisy Parameters---------------------#
     def radio6_clicked(self,pyCBIR):
         self.mySubwindow=subwindow()
         self.mySubwindow.createWindow(200,140)
         self.mySubwindow.setWindowFlags(QtCore.Qt.CustomizeWindowHint)
-        
+
         self.label1_daisy = QtWidgets.QLabel(self.mySubwindow)
         self.label1_daisy.setGeometry(QtCore.QRect(55, 0, 100, 16))
         self.label1_daisy.setObjectName("label1")
         self.label1_daisy.setText("Daisy options")
-        
+
         #GLCM parameters
         self.label2_daisy = QtWidgets.QLabel(self.mySubwindow)
         self.label2_daisy.setGeometry(QtCore.QRect(0, 30, 70, 16))
@@ -478,8 +493,8 @@ class Ui_pyCBIR(object):
         self.lineEdit1_daisy.setGeometry(QtCore.QRect(45, 30, 30, 16))
         self.lineEdit1_daisy.setObjectName("lineEdit")
         self.lineEdit1_daisy.setText("4")
-        
-        
+
+
         self.label3_daisy = QtWidgets.QLabel(self.mySubwindow)
         self.label3_daisy.setGeometry(QtCore.QRect(0, 50, 110, 16))
         self.label3_daisy.setObjectName("label3")
@@ -488,7 +503,7 @@ class Ui_pyCBIR(object):
         self.lineEdit2_daisy.setGeometry(QtCore.QRect(45, 50, 30, 16))
         self.lineEdit2_daisy.setObjectName("lineEdit")
         self.lineEdit2_daisy.setText("3")
-        
+
         self.label4_daisy = QtWidgets.QLabel(self.mySubwindow)
         self.label4_daisy.setGeometry(QtCore.QRect(0, 70, 110, 16))
         self.label4_daisy.setObjectName("label4")
@@ -497,7 +512,7 @@ class Ui_pyCBIR(object):
         self.lineEdit3_daisy.setGeometry(QtCore.QRect(85, 70, 30, 16))
         self.lineEdit3_daisy.setObjectName("lineEdit")
         self.lineEdit3_daisy.setText("2")
-        
+
         self.label5_daisy = QtWidgets.QLabel(self.mySubwindow)
         self.label5_daisy.setGeometry(QtCore.QRect(0, 90, 110, 16))
         self.label5_daisy.setObjectName("label4")
@@ -506,14 +521,14 @@ class Ui_pyCBIR(object):
         self.lineEdit4_daisy.setGeometry(QtCore.QRect(85, 90, 30, 16))
         self.lineEdit4_daisy.setObjectName("lineEdit")
         self.lineEdit4_daisy.setText("8")
-        
+
         self.buttom_daisy = QtWidgets.QPushButton(self.mySubwindow)
         self.buttom_daisy.setText("Ok")
         self.buttom_daisy.setGeometry(QtCore.QRect(50, 115, 100, 16))
         self.buttom_daisy.clicked.connect(self.b_daisy)
-        
+
         self.mySubwindow.show()
-        
+
     def b_daisy(self):
         self.list_of_parameters = [self.lineEdit1_daisy.text(),self.lineEdit2_daisy.text(),self.lineEdit3_daisy.text(),self.lineEdit4_daisy.text()]
         self.mySubwindow.close()
@@ -523,12 +538,12 @@ class Ui_pyCBIR(object):
         self.mySubwindow=subwindow()
         self.mySubwindow.createWindow(200,230)
         self.mySubwindow.setWindowFlags(QtCore.Qt.CustomizeWindowHint)
-        
+
         self.label1_bf = QtWidgets.QLabel(self.mySubwindow)
         self.label1_bf.setGeometry(QtCore.QRect(55, 0, 120, 16))
         self.label1_bf.setObjectName("label1")
         self.label1_bf.setText("Similarity Metrics")
-        
+
         self.gp = QtWidgets.QGroupBox(self.mySubwindow)
         self.radioButton_bf_1 = QtWidgets.QRadioButton(self.gp)
         self.radioButton_bf_1.setGeometry(QtCore.QRect(13, 29, 132, 18))
@@ -551,7 +566,7 @@ class Ui_pyCBIR(object):
         self.radioButton_bf_9.setGeometry(QtCore.QRect(13, 165, 138, 18))
         self.radioButton_bf_10 = QtWidgets.QRadioButton(self.gp)
         self.radioButton_bf_10.setGeometry(QtCore.QRect(13, 182, 213, 17))
-        
+
         self.radioButton_bf_1.setText("Euclidian Distance")
         self.radioButton_bf_2.setText("Infinity Distance")
         self.radioButton_bf_3.setText("Cossine Similarity")
@@ -562,17 +577,17 @@ class Ui_pyCBIR(object):
         self.radioButton_bf_8.setText("Kolmogorov Divergence")
         self.radioButton_bf_9.setText("Cramer Divergence")
         self.radioButton_bf_10.setText("Earth Movers Distance")
-        
-           
+
+
         self.buttom_bf = QtWidgets.QPushButton(self.mySubwindow)
         self.buttom_bf.setText("Ok")
         self.buttom_bf.setGeometry(QtCore.QRect(50, 210, 100, 16))
         self.buttom_bf.clicked.connect(self.b_bf)
-        
+
         self.mySubwindow.show()
-        
+
     def b_bf(self):
-        
+
         if self.radioButton_bf_1.isChecked():
             self.similarity_metric = 'ed'
         elif self.radioButton_bf_2.isChecked():
@@ -593,7 +608,7 @@ class Ui_pyCBIR(object):
             self.similarity_metric = 'cmd'
         elif self.radioButton_bf_10.isChecked():
             self.similarity_metric = 'cd'
-        
+
         self.mySubwindow.close()
 
 #-------------------Information---------------#
@@ -601,7 +616,7 @@ class Ui_pyCBIR(object):
         #import sys
         #sys.path.insert(0, '../src')
         import run
-        
+
         if self.radioButton.isChecked():
             self.feature_extraction_method = 'glcm'
         if self.radioButton_2.isChecked():
@@ -620,9 +635,9 @@ class Ui_pyCBIR(object):
             searching_method = 'lsh'
 
         retrieval_number = int(self.lineEdit.text())
-                
+
         preprocessing_method = 'simple'
-        
+
 
         if (self.lineEdit_3.text() != ""):
             fname_database,labels_database = informationPath(self.lineEdit_3.text())
@@ -646,7 +661,7 @@ class Ui_pyCBIR(object):
             pixmap = pixmap.scaled(800,680)
         label.setPixmap(pixmap)
         self.w.show()
-        
+
 
     def retranslateUi(self, pyCBIR):
         _translate = QtCore.QCoreApplication.translate
@@ -679,7 +694,7 @@ class subwindow(QtWidgets.QWidget):
        super(subwindow,self).__init__(parent)
        self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
        self.resize(WindowWidth,WindowHeight)
-       
+
 
 def informationPath(folder):
     folders = glob.glob(folder+"*/")
@@ -706,5 +721,3 @@ def informationFile(folder):
     labels = fname[:,1].astype(np.int)
     fname = list(fname[:,0])
     return fname,labels
-
-
