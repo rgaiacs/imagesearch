@@ -202,15 +202,16 @@ def run_retrieval_process_using_folders_structure():
     #path_cnn_pre_trained = '/Users/flavio/Downloads/models/inception_resnet_v2_2016_08_30.ckpt'
     #path_cnn_pre_trained = '/Users/flavio/Downloads/models/inception_v4.ckpt'
     #path_cnn_pre_trained = '/Users/flavio/Downloads/models/vgg_16.ckpt'
-    path_cnn_pre_trained = '/Users/flavio/Downloads/models/nasnet/model.ckpt'
+    #path_cnn_pre_trained = '/Users/flavio/Downloads/models/nasnet/model.ckpt'
     #path_cnn_pre_trained = '/Users/flavio/Downloads/pills_balanceada/pills_balanceada_train/output/model.ckpt'
     #path_cnn_pre_trained = '/home/flavio/bases/bases_soldado/illicit-pills_train_augmented/output/model.ckpt'
+    path_cnn_pre_trained = ''
     
     #To save the model trained or after fine-tuning 
     #path_save_cnn = '/Users/flavio/Downloads/SIIM/SIIM/SIIM_train/output/model_nasnet.ckpt' #To save and use in the retrieval process
     #path_save_cnn = '/Users/flavio/Downloads/pills_balanceada/pills_balanceada_train/output/model.ckpt'
     #path_save_cnn = '/home/flavio/bases/bases_soldado/illicit-pills_train_augmented/output/model.ckpt'
-    path_save_cnn = '/Users/flavio/Desktop/cells_small/output/model.ckpt'
+    path_save_cnn = '/Users/flavio/Desktop/cells_small/output/model_fine_tuning2.h5'
     
     #Query imagens
     #path_retrieval = '/Users/flavio/Downloads/pills_balanceada/pills_balanceada_train/query/'
@@ -228,7 +229,7 @@ def run_retrieval_process_using_folders_structure():
     path_output = path_database + 'output/'
     
     ############################# Parameters #######################################
-    feature_extraction_method = 'pretrained_nasnet' #'lenet' to training the LeNet, 'pretrained_name' to use the network pretrained and 'fine_tuning_name' to fine-tuning the network. name can be inception_resnet, vgg, nasnet and inception_v4
+    feature_extraction_method = 'fine_tuning_xception' #'lenet' to training the LeNet, 'pretrained_name' to use the network pretrained and 'fine_tuning_name' to fine-tuning the network. name can be inception_resnet, vgg, nasnet and inception_v4
     preprocessing_method = 'None'
     searching_method = 'bf' #bf is to use brute force and lsh is to use the lsh
     distance = 'ed' #the distance used in the brute force

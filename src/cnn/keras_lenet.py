@@ -161,7 +161,7 @@ def train_lenet(parameters):
         print("Initializing model randomly!")
         pass
     
-    sgd = optimizers.SGD(lr=0.08, decay=1e-3)
+    sgd = optimizers.SGD(lr=parameters.LEARNING_RATE, decay=1e-3)
     #keras.optimizers.Adam(lr = parameters.LEARNING_RATE)
     model.compile(sgd,
               loss='categorical_crossentropy', metrics=['accuracy'])

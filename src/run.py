@@ -18,13 +18,14 @@ import timeit
 import itertools
 
 from src.cnn.Parameters import Parameters
-from src.cnn import training_fine_tuning_cnn
-from src.cnn import feature_extraction_after_fine_tuning
-from src.cnn import feature_extraction_cnn_pretrained
+#from src.cnn import training_fine_tuning_cnn
+#from src.cnn import feature_extraction_after_fine_tuning
+#from src.cnn import feature_extraction_cnn_pretrained
 from src.similarity import searching
 from src.signatures import feature_extraction as fe
 from src.cnn import keras_lenet
 from src.cnn import keras_pre_trained
+from src.cnn import keras_fine_tuning
 #---------------------------------------------------------------------------------------------------------------#
 '''
 pyCBIR
@@ -221,7 +222,8 @@ def cnn_feature_extraction(name_images_database,labels_database,name_images_quer
                 #training_fine_tuning_cnn.train_lenet(parameters)
                 keras_lenet.train_lenet(parameters)
             elif(feature_extraction_method[0:11] == 'fine_tuning'):
-                training_fine_tuning_cnn.fine_tuning_cnn(parameters)
+                #training_fine_tuning_cnn.fine_tuning_cnn(parameters)
+                keras_fine_tuning.fine_tuning_cnn(parameters)
                 
             stop = timeit.default_timer()
             train_time = (stop - start)
@@ -265,7 +267,8 @@ def cnn_feature_extraction(name_images_database,labels_database,name_images_quer
                 #feature_vectors_database, fname_database, labels_database,probability_vector = feature_extraction_after_fine_tuning.features_extraction_lenet(parameters)
                 feature_vectors_database, fname_database, labels_database,probability_vector = keras_lenet.features_extraction_lenet(parameters)
             elif(feature_extraction_method[0:11] == 'fine_tuning'):
-                feature_vectors_database, fname_database, labels_database,probability_vector = feature_extraction_after_fine_tuning.features_extraction_cnn(parameters)
+#                feature_vectors_database, fname_database, labels_database,probability_vector = feature_extraction_after_fine_tuning.features_extraction_cnn(parameters)
+                feature_vectors_database, fname_database, labels_database, probability_vector = keras_fine_tuning.feature_extraction(name_images_database,labels_database,path_save_cnn, feature_extraction_method,parameters.NUM_CLASSES)
                     
             #Calculating the time of the extraction of features for the whole database
             stop = timeit.default_timer()
@@ -288,8 +291,9 @@ def cnn_feature_extraction(name_images_database,labels_database,name_images_quer
                 #feature_vectors_query, fname_query, labels_query,probability_vector = feature_extraction_after_fine_tuning.features_extraction_lenet(parameters)
                 feature_vectors_query, fname_query, labels_query,probability_vector = keras_lenet.features_extraction_lenet(parameters)
             elif(feature_extraction_method[0:11] == "fine_tuning"):
-                feature_vectors_query, fname_query, labels_query, probability_vector = feature_extraction_after_fine_tuning.features_extraction_cnn(parameters)
-        
+                #feature_vectors_query, fname_query, labels_query, probability_vector = feature_extraction_after_fine_tuning.features_extraction_cnn(parameters)
+                feature_vectors_query, fname_query, labels_query, probability_vector = keras_fine_tuning.feature_extraction(name_images_query,labels_query,path_save_cnn, feature_extraction_method,parameters.NUM_CLASSES)
+                
             return fname_database, feature_vectors_database, labels_database, fname_query, feature_vectors_query, labels_query, time_to_extract_features, train_time, parameters.LIST_ERROR, probability_vector
         return [], [], [], [], [], [], 0, train_time,parameters.LIST_ERROR
     
