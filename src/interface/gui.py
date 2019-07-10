@@ -443,7 +443,7 @@ class Ui_pyCBIR(object):
                 else:
                     if self.feature_extraction_method == 'lenet':
                         QMessageBox.information(None,'pyCBIR', 'Now you have to choose the place to save the trained model.')
-                        self.path_save_cnn = QFileDialog.getSaveFileName(None,'Save File',file_name,filter = 'h5 (*.h5)')[0]
+                        self.path_save_cnn = QFileDialog.getSaveFileName(None,'Save File',file_name)[0]
                     self.list_of_parameters = [self.lineEdit2.text(),self.lineEdit1.text()]#learning rate and epochs
                     self.mySubwindow.close()
             except ValueError:
@@ -464,9 +464,10 @@ class Ui_pyCBIR(object):
                 self.path_cnn_pre_trained = ''
 
             QMessageBox.information(None,'pyCBIR', 'Now you have to choose the place to save the fine tuning model.')
-            self.path_save_cnn = QFileDialog.getSaveFileName(None,'Save File',filter = 'h5 (*.h5)')[0]
-
-            #if self.feature_extraction_method == 'fine_tuning_lenet':
+            self.path_save_cnn = QFileDialog.getExistingDirectory(None,'Open path')
+            
+            self.path_save_cnn = self.path_save_cnn + '/model_fine_tuning.h5'
+                        #if self.feature_extraction_method == 'fine_tuning_lenet':
             #    QMessageBox.information(None,'pyCBIR', 'Now you have to choose the pre-trained file.')
             #    cwd = os.getcwd()
             #    self.path_cnn_pre_trained = QFileDialog.getOpenFileName(None,'Select the file of the pre-trained CNN: ', cwd,"Model Files (*.ckpt)")
