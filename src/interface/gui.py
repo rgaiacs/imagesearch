@@ -136,7 +136,7 @@ class Ui_pyCBIR(object):
         self.list_of_parameters = []
         self.path_cnn_pre_trained = ''
         self.path_cnn_trained = ''
-
+        self.path_save_cnn = ''
         #features
         self.radioButton.clicked.connect(self.radio_clicked)
         self.radioButton_2.clicked.connect(self.radio2_clicked)
@@ -428,7 +428,7 @@ class Ui_pyCBIR(object):
 
     def b_cnn(self):
 
-        if self.rb1.isChecked():
+        if self.rb1.isChecked(): #treinar cnn
             self.feature_extraction_method = self.comboBox.currentText()
             cwd = os.getcwd()
             lr =  self.lineEdit2.text()
@@ -442,8 +442,8 @@ class Ui_pyCBIR(object):
                     #self.buttom_ok.clicked.connect(self.radio5_clicked)
                 else:
                     if self.feature_extraction_method == 'lenet':
-                        QMessageBox.information(None,'pyCBIR', 'Now you have to choose the place to save trained model.')
-                        self.path_cnn_trained = QFileDialog.getSaveFileName(None,'Save File',file_name,filter = 'h5 (*.h5)')[0]
+                        QMessageBox.information(None,'pyCBIR', 'Now you have to choose the place to save the trained model.')
+                        self.path_save_cnn = QFileDialog.getSaveFileName(None,'Save File',file_name,filter = 'h5 (*.h5)')[0]
                     self.list_of_parameters = [self.lineEdit2.text(),self.lineEdit1.text()]#learning rate and epochs
                     self.mySubwindow.close()
             except ValueError:
@@ -453,21 +453,41 @@ class Ui_pyCBIR(object):
             #else:
             #    self.path_cnn_trained = QFileDialog.getSaveFileName(None,'Save File',file_name,filter = 'h5 (*.h5)')[0]
 
-        elif self.rb2.isChecked():
+        elif self.rb2.isChecked():#fine tuning
             self.feature_extraction_method = 'fine_tuning_'+self.comboBox.currentText()
 
-            if self.feature_extraction_method == 'fine_tuning_lenet':
-                QMessageBox.information(None,'pyCBIR', 'Now you have to choose the pre-trained file.')
+            buttonReply = QMessageBox.question(None,'pyCBIR', 'Do you want to load a .h5 file?',QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+            if buttonReply == QMessageBox.Yes:
                 cwd = os.getcwd()
-                self.path_cnn_pre_trained = QFileDialog.getOpenFileName(None,'Select the file of the pre-trained CNN: ', cwd,"Model Files (*.ckpt)")
+                self.path_cnn_pre_trained = QFileDialog.getOpenFileName(None,'Select a .h5 file!',cwd,filter = 'h5 (*.h5)')[0]
+            else:
+                self.path_cnn_pre_trained = ''
+
+            QMessageBox.information(None,'pyCBIR', 'Now you have to choose the place to save the fine tuning model.')
+            self.path_save_cnn = QFileDialog.getSaveFileName(None,'Save File',filter = 'h5 (*.h5)')[0]
+
+            #if self.feature_extraction_method == 'fine_tuning_lenet':
+            #    QMessageBox.information(None,'pyCBIR', 'Now you have to choose the pre-trained file.')
+            #    cwd = os.getcwd()
+            #    self.path_cnn_pre_trained = QFileDialog.getOpenFileName(None,'Select the file of the pre-trained CNN: ', cwd,"Model Files (*.ckpt)")
             self.list_of_parameters = [self.lineEdit2.text(),self.lineEdit1.text()]#learning rate and epochs
             self.mySubwindow.close()
-        else:
+        else: #pre-treinada
             self.feature_extraction_method = 'pretrained_'+self.comboBox.currentText()
             if self.feature_extraction_method == 'pretrained_lenet':
                 QMessageBox.information(None,'pyCBIR', 'Now you have to choose the pre-trained file.')
                 cwd = os.getcwd()
-                self.path_cnn_pre_trained = QFileDialog.getOpenFileName(None,'Select the file of the pre-trained CNN: ', cwd,"Model Files (*.ckpt)")
+                self.path_cnn_pre_trained = QFileDialog.getOpenFileName(None,'Select the file of the pre-trained CNN: ', cwd,"Model Files (*.h5)")
+                self.feature_extraction_method = 'pretrained_'+self.comboBox.currentText()
+
+            else:
+                buttonReply = QMessageBox.question(None,'pyCBIR', 'Do you want to use imageNet weights?',QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
+                if buttonReply == QMessageBox.No:
+                    cwd = os.getcwd()
+                    QMessageBox.information(None,'pyCBIR', 'Now you have to choose the pre-trained file.')
+                    self.path_cnn_pre_trained = QFileDialog.getOpenFileName(None,'Select a .h5 file!',cwd,filter = 'h5 (*.h5)')[0]
+
+
             self.list_of_parameters = [self.lineEdit2.text(),self.lineEdit1.text()]#learning rate and epochs
             self.mySubwindow.close()
 
@@ -650,7 +670,7 @@ class Ui_pyCBIR(object):
             fname_retrieval,labels_retrieval = informationFile(self.lineEdit_6.text())
 
         print(self.path_cnn_trained)
-        _,_,file = run.run_command_line(fname_database,labels_database,fname_retrieval,labels_retrieval,self.path_cnn_pre_trained, self.path_cnn_trained, self.lineEdit_2.text(),self.feature_extraction_method,self.similarity_metric,retrieval_number,self.list_of_parameters,preprocessing_method,searching_method, isEvaluation = False)
+        _,_,file = run.run_command_line(fname_database,labels_database,fname_retrieval,labels_retrieval,self.path_cnn_pre_trained, self.path_save_cnn, self.lineEdit_2.text(),self.feature_extraction_method,self.similarity_metric,retrieval_number,self.list_of_parameters,preprocessing_method,searching_method, isEvaluation = False)
         self.w = QtWidgets.QWidget(self.centralwidget)
         self.w.setGeometry(QtCore.QRect(140, 0, 951, 791))
         self.w.setEnabled(True)
