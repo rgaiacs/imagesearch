@@ -18,9 +18,6 @@ import timeit
 import itertools
 
 from src.cnn.Parameters import Parameters
-#from src.cnn import training_fine_tuning_cnn
-#from src.cnn import feature_extraction_after_fine_tuning
-#from src.cnn import feature_extraction_cnn_pretrained
 from src.similarity import searching
 from src.signatures import feature_extraction as fe
 from src.cnn import keras_lenet
