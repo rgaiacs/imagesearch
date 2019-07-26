@@ -9,19 +9,15 @@ Created on Jun 7, 2019
 #os.environ["CUDA_VISIBLE_DEVICES"]="0";  # Do other imports now...
 from keras.models import Sequential
 from keras.layers import Dense, Conv2D, Flatten, Dropout 
-from keras.layers import MaxPooling2D, BatchNormalization, Activation
-from keras.losses import categorical_crossentropy
+from keras.layers import MaxPooling2D, Activation
 from keras import optimizers
 from keras.utils import to_categorical
 from keras.models import load_model
 from keras.models import Model
 from keras.preprocessing.image import ImageDataGenerator
-import keras
 import numpy as np
 from skimage.transform import resize
 import skimage.io as io
-from keras.models import model_from_json
-
 from src.util import parallel
 
 
@@ -60,17 +56,6 @@ def create_model(shape_in, num_classes, dropout_value = 0.5):
     #Third max-pool layer
     model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2), 
                            name = 'pool_3', padding='same'))
-    
-    #Fourth convolutional layer
-    #model.add(Conv2D(48, kernel_size=5, strides=(1, 1), use_bias=True,
-    #                 padding='same', name = 'conv_last'))
-    #model.add(Activation("relu"))
-
-    #Fourth max-pool layer
-    #model.add(MaxPooling2D(pool_size=(4, 4), strides=(2, 2), 
-    #                       name = 'pool_last'))
-
-    #model.add(BatchNormalization())
     
     #Dropout
     model.add(Dropout(dropout_value))
@@ -181,8 +166,7 @@ def train_lenet(parameters):
     
     
 def features_extraction_lenet(parameters):
-    layer_name = 'dense_last'
-        
+    #layer_name = 'dense_last'
     
     try:
         model = load_model(parameters.PATH_SAVE_CNN)
@@ -197,7 +181,7 @@ def features_extraction_lenet(parameters):
     X_test, Y_test = read_database(parameters)
 
     intermediate_layer_model = Model(inputs=model.input,
-                                     outputs=model.get_layer(layer_name).output)
+                                     outputs=model.layers[-2].output)
     feature_vectors_database = intermediate_layer_model.predict(X_test)    
 
     #features = pd.DataFrame(data=features)

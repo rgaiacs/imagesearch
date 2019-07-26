@@ -63,7 +63,7 @@ def create_model(feature_extraction_method):
         layer_name = 'global_average_pooling2d_1'
         input_image = 331
     
-    intermediate_layer_model = Model(inputs=model.input, outputs=model.get_layer(layer_name).output)
+    intermediate_layer_model = Model(inputs=model.input, outputs=model.layers[-2].output)
        
     model.summary()
     
