@@ -60,7 +60,7 @@ def searching(feature_vectors_database,feature_vectors_retrieval, labels_databas
                                     labels_database, fname_database, similarity_metric,
                                     retrieval_number, list_of_parameters, feature_extraction_method,
                                     path_output,searching_method)
-    elif searching_method == 'r':
+    elif searching_method == 'rt':
         return searching_RTree(feature_vectors_database,feature_vectors_retrieval,
                                labels_database, fname_database, similarity_metric,
                                retrieval_number, list_of_parameters, feature_extraction_method,
