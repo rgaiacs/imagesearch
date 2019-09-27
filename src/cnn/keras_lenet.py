@@ -9,7 +9,7 @@ Created on Jun 7, 2019
 #os.environ["CUDA_VISIBLE_DEVICES"]="0";  # Do other imports now...
 from keras.models import Sequential
 from keras.layers import Dense, Conv2D, Flatten, Dropout 
-from keras.layers import MaxPooling2D, Activation
+from keras.layers import MaxPooling2D, Activation, BatchNormalization
 from keras import optimizers
 from keras.utils import to_categorical
 from keras.models import load_model
@@ -34,14 +34,14 @@ def create_model(shape_in, num_classes, dropout_value = 0.5):
     model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2), 
                            name = 'pool_1', padding='same'))
     
-    #model.add(BatchNormalization())
+    model.add(BatchNormalization())
 
     #Second convolutional layer
     model.add(Conv2D(64, kernel_size=3, strides=(1, 1), use_bias=True,
                      padding='same', name = 'conv_2'))
     model.add(Activation("relu"))
 
-    #model.add(BatchNormalization())
+    model.add(BatchNormalization())
     
     #Second max-pool layer
     model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2), 
@@ -51,7 +51,7 @@ def create_model(shape_in, num_classes, dropout_value = 0.5):
     model.add(Conv2D(48, kernel_size=3, strides=(1, 1), use_bias=True,
                      padding='same', name = 'conv_3'))
     model.add(Activation("relu"))
-    #model.add(BatchNormalization())
+    model.add(BatchNormalization())
 
     #Third max-pool layer
     model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2), 
@@ -109,6 +109,9 @@ def read_database_parallel(im, name, label, im_size1 = 0, im_size2 = 0, num_chan
         im2[:,:,1]=im[:,:]
         im2[:,:,2]=im[:,:]
         im = im2
+        
+    if(num_channels == 1):
+        im = np.reshape(im, (im.shape[0],im.shape[1],num_channels))
 
     return im,name,label,im.shape
 
