@@ -140,7 +140,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>LSH Forest</string>
+      <string>KDTree</string>
      </property>
     </widget>
    </widget>

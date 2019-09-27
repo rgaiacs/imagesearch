@@ -661,12 +661,12 @@ class Ui_pyCBIR(object):
         if self.radioButton_6.isChecked():
             self.feature_extraction_method = 'daisy'
 
-        searching_method = 'bf'
+        searching_method = ''
 
         if self.radioButton_7.isChecked():
             searching_method = 'bf'
         elif self.radioButton_8.isChecked():
-            searching_method = 'lsh'
+            searching_method = 'kd'
 
         retrieval_number = int(self.lineEdit.text())
 
@@ -709,7 +709,7 @@ class Ui_pyCBIR(object):
         self.radioButton_6.setText(_translate("pyCBIR", "Daisy"))
         self.groupBox_2.setTitle(_translate("pyCBIR", "Searching"))
         self.radioButton_7.setText(_translate("pyCBIR", "Brute Force"))
-        self.radioButton_8.setText(_translate("pyCBIR", "LSH Forest"))
+        self.radioButton_8.setText(_translate("pyCBIR", "KDTree"))
         self.groupBox_3.setTitle(_translate("pyCBIR", "Retrieval Options"))
         self.label.setText(_translate("pyCBIR", "Retrieval Number:"))
         self.groupBox_4.setTitle(_translate("pyCBIR", "By Folder"))
