@@ -71,10 +71,10 @@ def searching(feature_vectors_database,feature_vectors_retrieval, labels_databas
                                 retrieval_number, list_of_parameters, feature_extraction_method,
                                 path_output,searching_method)
     elif searching_method == 'lsh':
-        return searching_KDTree(feature_vectors_database,feature_vectors_retrieval,
-                                labels_database, fname_database, similarity_metric,
-                                retrieval_number, list_of_parameters, feature_extraction_method,
-                                path_output,searching_method)
+        return searching_bruteForce(feature_vectors_database,feature_vectors_retrieval,
+                                    labels_database, fname_database, similarity_metric,
+                                    retrieval_number, list_of_parameters, feature_extraction_method,
+                                    path_output,searching_method)
 
     elif searching_method == 'km':
         return searching_KMeans(feature_vectors_database,feature_vectors_retrieval,

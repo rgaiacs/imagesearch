@@ -21,6 +21,7 @@ import csv
 import os
 
 class Ui_pyCBIR(object):
+
     def setupUi(self, pyCBIR):
         pyCBIR.setObjectName("pyCBIR")
         pyCBIR.resize(946, 705)
@@ -137,12 +138,14 @@ class Ui_pyCBIR(object):
         QtCore.QMetaObject.connectSlotsByName(pyCBIR)
 
         #variables
-        self.feature_extraction_method = ''
-        self.similarity_metric = ''
+            #defining defaults
+        self.feature_extraction_method = 'fotf'
+        self.similarity_metric = 'ed'
         self.list_of_parameters = []
         self.path_cnn_pre_trained = ''
         self.path_cnn_trained = ''
         self.path_save_cnn = ''
+
         #features
         self.radioButton.clicked.connect(self.radio_clicked)
         self.radioButton_2.clicked.connect(self.radio2_clicked)
@@ -597,7 +600,7 @@ class Ui_pyCBIR(object):
         self.radioButton_bf_10 = QtWidgets.QRadioButton(self.gp)
         self.radioButton_bf_10.setGeometry(QtCore.QRect(13, 182, 213, 17))
 
-        self.radioButton_bf_1.setText("Euclidian Distance")
+        self.radioButton_bf_1.setText("Euclidean Distance")
         self.radioButton_bf_2.setText("Infinity Distance")
         self.radioButton_bf_3.setText("Cossine Similarity")
         self.radioButton_bf_4.setText("Pearson Correlation")
@@ -658,7 +661,8 @@ class Ui_pyCBIR(object):
         if self.radioButton_6.isChecked():
             self.feature_extraction_method = 'daisy'
 
-        searching_method = ''
+        searching_method = 'bf'
+
         if self.radioButton_7.isChecked():
             searching_method = 'bf'
         elif self.radioButton_8.isChecked():
