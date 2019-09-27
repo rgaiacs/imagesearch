@@ -1,17 +1,18 @@
 '''
 Created on 15 de sep de 2016
+Last Modified on 26 de set de 2019
 
-@author: romuere
+@author: romuere, dani
 '''
 import numpy as np
 from src.similarity.similarity_metrics import similarity_metrics
 import pickle
-from scipy.spatial import ckdtree 
+from scipy.spatial import ckdtree
 from sklearn.cluster import KMeans
 import os
 import sys
 sys.setrecursionlimit(1000000)
-from sklearn.neighbors import LSHForest
+#from sklearn.neighbors import LSHForest
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -70,10 +71,11 @@ def searching(feature_vectors_database,feature_vectors_retrieval, labels_databas
                                 retrieval_number, list_of_parameters, feature_extraction_method,
                                 path_output,searching_method)
     elif searching_method == 'lsh':
-        return searching_LSH(feature_vectors_database,feature_vectors_retrieval,
-                             labels_database, fname_database, similarity_metric,
-                             retrieval_number, list_of_parameters, feature_extraction_method,
-                             path_output,searching_method)
+        return searching_KDTree(feature_vectors_database,feature_vectors_retrieval,
+                                labels_database, fname_database, similarity_metric,
+                                retrieval_number, list_of_parameters, feature_extraction_method,
+                                path_output,searching_method)
+
     elif searching_method == 'km':
         return searching_KMeans(feature_vectors_database,feature_vectors_retrieval,
                                 labels_database, fname_database, similarity_metric,
@@ -211,8 +213,8 @@ def searching_KDTree(feature_vectors_database,feature_vectors_retrieval, labels_
         #kdtree.leafnode = ckdtree.cKDTree.leafnode
         #kdtree.innernode = ckdtree.cKDTree.innernode
         tree = ckdtree.cKDTree(feature_vectors_database,leafsize=15048)
-        
-        with open(file, 'wb') as handle:   
+
+        with open(file, 'wb') as handle:
             pickle.dump(tree, handle)
     else:
         with open(file, 'rb') as handle:
@@ -237,6 +239,7 @@ def searching_KDTree(feature_vectors_database,feature_vectors_retrieval, labels_
 
     return (result_filenames,result_labels)
 
+#this function is deprecated
 def searching_LSH(feature_vectors_database,feature_vectors_retrieval, labels_database,
                   fname_database, similarity_metric, retrieval_number, list_of_parameters,
                   feature_extraction_method,path_output,searching_method):

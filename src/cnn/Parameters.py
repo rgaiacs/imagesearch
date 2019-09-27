@@ -1,15 +1,16 @@
 '''
 Created on 2 de set de 2016
+Last Modified on 26 de set de 2019
 
-@author: flavio
+@author: flavio, dani
 '''
 
-from scipy.misc import imread
+from imageio import imread
 import numpy as np
 from src.preprocessing import pp2
 
 class Parameters(object):
-    
+
     IMAGE_SIZE1 = 0
     IMAGE_SIZE2 = 0
     NEW_IMAGE_SIZE1 = 0
@@ -27,7 +28,7 @@ class Parameters(object):
     PREPROCESSING = 'none'
     FEATURE_EXTRACTION_METHOD = ''
     LIST_ERROR = []
-    
+
     #Not used
     NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 0
     FEATURES_LAYER = []
@@ -38,7 +39,7 @@ class Parameters(object):
     ID_CHANNEL = 0
     NUM_LEVEL = 0
 
-    
+
     #Filling the parameters
     def __init__(self, batch_size, name_images, labels, path_output,path_cnn_pre_trained,path_save_cnn,list_parameters,preprocessing,feature_extraction_method = 'none'):
         self.BATCH_SIZE = batch_size
@@ -49,7 +50,7 @@ class Parameters(object):
         self.PATH_SAVE_CNN = path_save_cnn
         self.PREPROCESSING = preprocessing
         self.FEATURE_EXTRACTION_METHOD = feature_extraction_method
-        
+
         try:
             #Learning rate and number of epochs
             if(not list_parameters):
@@ -57,14 +58,14 @@ class Parameters(object):
                 list_parameters.append(0)
             elif(list_parameters[0] != '' and list_parameters[1] != ''):
                 self.LEARNING_RATE = np.double(list_parameters[0])
-                self.NUM_EPOCHS = int(list_parameters[1]) 
+                self.NUM_EPOCHS = int(list_parameters[1])
         except:
             raise ValueError('Error in the parameters!')
-        
-          
+
+
         #number of examples per epochs for train
         self.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = len(name_images)
-        
+
         #number of classes
         self.NUM_CLASSES = np.unique(labels).shape[0]
 
@@ -72,9 +73,8 @@ class Parameters(object):
         im = imread(name_images[0])
         self.IMAGE_SIZE1 = im.shape[0]
         self.IMAGE_SIZE2 = im.shape[1]
-        
+
         if(len(im.shape) > 2 or feature_extraction_method[0:11] == "fine_tuning"):
             self.NUM_CHANNELS = 3
         else:
             self.NUM_CHANNELS = 1
-        

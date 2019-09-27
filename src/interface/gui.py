@@ -1,3 +1,9 @@
+'''
+Created on 15 de sep de 2016
+Last Modified on 26 de set de 2019
+
+@author: romuere, flavio, dani
+'''
 # -*- coding: utf-8 -*-
 
 # Form implementation generated from reading ui file 'pycbir.ui'
@@ -49,10 +55,10 @@ class Ui_pyCBIR(object):
         self.radioButton_7 = QtWidgets.QRadioButton(self.groupBox_2)
         self.radioButton_7.setGeometry(QtCore.QRect(0, 20, 101, 20))
         self.radioButton_7.setObjectName("radioButton_7")
+        self.radioButton_7.setChecked(True)
         self.radioButton_8 = QtWidgets.QRadioButton(self.groupBox_2)
         self.radioButton_8.setGeometry(QtCore.QRect(0, 40, 97, 18))
         self.radioButton_8.setObjectName("radioButton_8")
-        self.radioButton_8.setChecked(True)
         self.groupBox_3 = QtWidgets.QGroupBox(self.centralwidget)
         self.groupBox_3.setGeometry(QtCore.QRect(3, 210, 131, 471))
         self.groupBox_3.setObjectName("groupBox_3")
@@ -465,7 +471,7 @@ class Ui_pyCBIR(object):
 
             QMessageBox.information(None,'pyCBIR', 'Now you have to choose the place to save the fine tuning model.')
             self.path_save_cnn = QFileDialog.getExistingDirectory(None,'Open path')
-            
+
             self.path_save_cnn = self.path_save_cnn + '/model_fine_tuning.h5'
                         #if self.feature_extraction_method == 'fine_tuning_lenet':
             #    QMessageBox.information(None,'pyCBIR', 'Now you have to choose the pre-trained file.')
