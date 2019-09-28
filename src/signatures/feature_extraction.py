@@ -89,8 +89,7 @@ def descriptor(collection, collection_filenames, labels,feature_extraction_metho
     elif feature_extraction_method == 'hog':
         features = parallel.apply_parallel(collection, collection_filenames, labels, hog_rom.HOG, {"cells": int(list_of_parameters[0]), "blocks": int(list_of_parameters[1])})
     elif feature_extraction_method == 'daisy':
-        #features = parallel.apply_parallel(collection, collection_filenames, labels, daisy.daisy_features,{"step_": int(list_of_parameters[0]), "rings_": int(list_of_parameters[1]),"histograms_": int(list_of_parameters[2]),"orientations_": int(list_of_parameters[3])})
-        features = parallel.apply_parallel(collection, collection_filenames, labels, sift.sift)
+        features = parallel.apply_parallel(collection, collection_filenames, labels, daisy.daisy_features,{"step_": int(list_of_parameters[0]), "rings_": int(list_of_parameters[1]),"histograms_": int(list_of_parameters[2]),"orientations_": int(list_of_parameters[3])})
     return features
 
 def descriptor_all_database(filenames,labels,feature_extraction_method,list_of_parameters,preprocessing_method):
