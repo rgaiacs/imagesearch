@@ -2,7 +2,6 @@ import numpy as np
 from scipy.ndimage.filters import convolve
 
 def HOG(Im,name,label, cells, blocks):
-    
     nwin_x=blocks;#set here the number of HOG windows per bound box
     nwin_y=blocks;
     B=cells;#set here the number of histogram bins
@@ -23,23 +22,36 @@ def HOG(Im,name,label, cells, blocks):
     for n in range(nwin_y):
         for m in range(nwin_x):
             cont=cont+1;
-            angles2=angles[n*step_y+1:(n+2)*step_y,m*step_x+1:(m+2)*step_x] 
-            magnit2=magnit[n*step_y+1:(n+2)*step_y,m*step_x+1:(m+2)*step_x]
+            angles2=angles[np.int(n*step_y+1):np.int((n+2)*step_y),np.int(m*step_x+1):np.int((m+2)*step_x)] 
+            magnit2=magnit[np.int(n*step_y+1):np.int((n+2)*step_y),np.int(m*step_x+1):np.int((m+2)*step_x)]
             v_angles=angles2.reshape(1,angles2.shape[0]*angles2.shape[1])[0];    
             v_magnit=magnit2.reshape(1,magnit2.shape[0]*magnit2.shape[1])[0];
             K=np.max(v_angles.shape);
             #assembling the histogram with 9 bins (range of 20 degrees per bin)
-            bin=0;
+            bin_=-1;
             H2=np.zeros((B));
+            
             for ang_lim in np.arange(-np.pi+2*np.pi/B,np.pi,2*np.pi/B):
-                bin=bin+1;
+                bin_=bin_+1;
                 for k in range(K):
                     if v_angles[k]<ang_lim:
-                        v_angles[k]=100;
-                        H2[bin]=H2[bin]+v_magnit[k];
-               
+                        try:
+                            v_angles[k]=100;
+                            H2[bin_]=H2[bin_]+v_magnit[k];
+                            
+                        except Exception as e:
+                            print("ERRO") 
+                            #print(e)
+                            print("erro: ")
+                            print(H2.shape)
+                            print(bin_)
+                            print(v_magnit.shape)
+                            print(k)   
+                            a
+                                           
             H2=H2/(np.linalg.norm(H2)+0.01);        
             H[(cont-1)*B:cont*B]=H2;
+            
     return H,name,label
 
 #imagem = np.random.random((50,50))
