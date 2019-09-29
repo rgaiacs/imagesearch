@@ -53,7 +53,7 @@ def accuracy(result,retrieval_labels,retrieval_number, feature_extraction_method
         cont = 0
         for probability_query in probability_vector:
             class_ = np.argmax(probability_query)
-            
+
             format_str = ('%.2f class %d\n (GT class: %.2f)')
             text.append(format_str % (probability_query[class_], class_,int(retrieval_labels[cont])))
             cont+=1
@@ -115,7 +115,7 @@ def show_retrieval_indexing(fname_retrieval, result, labels_retrieval, retrieval
             else:
                 ax[cont2,0].imshow(imread(i),cmap='jet',interpolation = 'none')
 
-            ax[cont2,0].set_adjustable('box-forced')
+            ax[cont2,0].set_adjustable('box')
             ax[cont2,0].set_yticks([])
             ax[cont2,0].set_xticks([])
             ax[cont2,0].set_ylabel(acc[cont2],fontsize = 5)
@@ -130,7 +130,7 @@ def show_retrieval_indexing(fname_retrieval, result, labels_retrieval, retrieval
                     ax[cont2,j+1].imshow(im,cmap='viridis',interpolation = 'none')
                 else:
                     ax[cont2,j+1].imshow(imread(result[0][cont2][j]),cmap='jet',interpolation = 'none')
-                
+
                 if result[1][cont2][j] == labels_retrieval[cont2]:
                     color = 'green'
                 else:
@@ -139,13 +139,13 @@ def show_retrieval_indexing(fname_retrieval, result, labels_retrieval, retrieval
                 ax[cont2,j+1].set_yticks([])
                 for axis in ['top','bottom','left','right']:
                     ax[cont2,j+1].spines[axis].set_linewidth(3)
-                
+
                 ax[cont2,j+1].spines['bottom'].set_color(color)
-                ax[cont2,j+1].spines['top'].set_color(color) 
+                ax[cont2,j+1].spines['top'].set_color(color)
                 ax[cont2,j+1].spines['right'].set_color(color)
                 ax[cont2,j+1].spines['left'].set_color(color)
 
-                ax[cont2,j+1].set_adjustable('box-forced')
+                ax[cont2,j+1].set_adjustable('box')
                 ax[cont2,j+1].set_yticks([])
                 ax[cont2,j+1].set_xticks([])
 
@@ -154,7 +154,7 @@ def show_retrieval_indexing(fname_retrieval, result, labels_retrieval, retrieval
                 #shortName = shortName[0:10]
                 #ax[cont2,j+1].set_title(shortName,fontsize=5)
                 cont += 1
-    
+
     else:
         im = imread(fname_retrieval[0])
         if log_vis == True:
@@ -164,8 +164,8 @@ def show_retrieval_indexing(fname_retrieval, result, labels_retrieval, retrieval
             im = np.log(im)
             ax[0].imshow(im,cmap='viridis',interpolation = 'none')
         else:
-            ax[0].imshow(im,cmap='viridis',interpolation = 'none')                    
-        ax[0].set_adjustable('box-forced')
+            ax[0].imshow(im,cmap='viridis',interpolation = 'none')
+        ax[0].set_adjustable('box')
         ax[0].set_yticks([])
         ax[0].set_xticks([])
         ax[0].set_ylabel(acc[0],fontsize = 5)
@@ -177,17 +177,17 @@ def show_retrieval_indexing(fname_retrieval, result, labels_retrieval, retrieval
                     im[a] = 1
                     im = np.log(im)
                     ax[j+1].imshow(im,cmap='viridis',interpolation = 'none')
-            else:        
+            else:
                 ax[j+1].imshow(im,cmap='viridis',interpolation = 'none')
-  
-            ax[j+1].set_adjustable('box-forced')
+
+            ax[j+1].set_adjustable('box')
             ax[j+1].set_yticks([])
             ax[j+1].set_xticks([])
             shortName = result[0][0][j]
             shortName = shortName.split('/')[-1]
             shortName = shortName[0:10]
             ax[j+1].set_title(shortName,fontsize=5)
-    
+
 
     file = path_output + "result" + "_" + feature_extraction_method + "_" + similariry_metric + "_" + str(retrieval_number) + "_searching_method_" + searching_method +".png"
     #print(file)
@@ -202,29 +202,29 @@ def cnn_feature_extraction(name_images_database,labels_database,name_images_quer
     """
     train_time = 0
     batch_size = 16
-    
+
     #Name of the files and paths to read or save the csv
     path_features = path_output + '/feature_vectors_' + feature_extraction_method + '.csv'
     path_filenames = path_output + '/image_filenames_' + feature_extraction_method + '.csv'
     path_labels = path_output + '/labels_' + feature_extraction_method + '.csv'
-        
+
     if(feature_extraction_method == 'lenet' or feature_extraction_method[0:11] == 'fine_tuning'):
         parameters = Parameters(batch_size,name_images_database,labels_database,path_output,path_cnn_pre_trained,path_save_cnn,list_of_parameters,preprocessing_method,feature_extraction_method)
-        
+
         #if the train is necessary
         if(parameters.NUM_EPOCHS > 0):
             start = timeit.default_timer()
-            
+
             if(feature_extraction_method == 'lenet'):#option to train the LeNet
                 #training_fine_tuning_cnn.train_lenet(parameters)
                 keras_lenet.train_lenet(parameters)
             elif(feature_extraction_method[0:11] == 'fine_tuning'):
                 #training_fine_tuning_cnn.fine_tuning_cnn(parameters)
                 keras_fine_tuning.fine_tuning_cnn(parameters)
-                
+
             stop = timeit.default_timer()
             train_time = (stop - start)
-            
+
             #To generate the plot of the error decay
             if(parameters.LIST_ERROR):
                 fig, ax = plt.subplots( nrows=1, ncols=1 )
@@ -256,26 +256,26 @@ def cnn_feature_extraction(name_images_database,labels_database,name_images_quer
             labels_database = labels_database.reshape(-1)
             #Calculating the time of the extraction of features for the whole database
             stop = timeit.default_timer()
-            
+
         #To just train the cnn without do the retrieval process set do_searching_processing as False
         elif(do_searching_processing):
-            
+
             if(feature_extraction_method == 'lenet'):
                 #feature_vectors_database, fname_database, labels_database,probability_vector = feature_extraction_after_fine_tuning.features_extraction_lenet(parameters)
                 feature_vectors_database, fname_database, labels_database,probability_vector = keras_lenet.features_extraction_lenet(parameters)
             elif(feature_extraction_method[0:11] == 'fine_tuning'):
 #                feature_vectors_database, fname_database, labels_database,probability_vector = feature_extraction_after_fine_tuning.features_extraction_cnn(parameters)
                 feature_vectors_database, fname_database, labels_database, probability_vector = keras_fine_tuning.feature_extraction(name_images_database,labels_database,path_save_cnn, feature_extraction_method,parameters.NUM_CLASSES)
-                    
+
             #Calculating the time of the extraction of features for the whole database
             stop = timeit.default_timer()
-            
+
             if(save_csv):
                 #save files
                 np.savetxt(path_features, feature_vectors_database,delimiter = ',')
                 np.savetxt(path_filenames, fname_database,fmt='%s')
                 np.savetxt(path_labels, labels_database,fmt = '%d')
-            
+
         #time
         time_to_extract_features = (stop - start)
 
@@ -283,20 +283,20 @@ def cnn_feature_extraction(name_images_database,labels_database,name_images_quer
             #calling the extraction of features for the retrieval images
             parameters.NAME_IMAGES = name_images_query
             parameters.LABELS = labels_query
-            
+
             if(feature_extraction_method == "lenet"):
                 #feature_vectors_query, fname_query, labels_query,probability_vector = feature_extraction_after_fine_tuning.features_extraction_lenet(parameters)
                 feature_vectors_query, fname_query, labels_query,probability_vector = keras_lenet.features_extraction_lenet(parameters)
             elif(feature_extraction_method[0:11] == "fine_tuning"):
                 #feature_vectors_query, fname_query, labels_query, probability_vector = feature_extraction_after_fine_tuning.features_extraction_cnn(parameters)
                 feature_vectors_query, fname_query, labels_query, probability_vector = keras_fine_tuning.feature_extraction(name_images_query,labels_query,path_save_cnn, feature_extraction_method,parameters.NUM_CLASSES)
-                
+
             return fname_database, feature_vectors_database, labels_database, fname_query, feature_vectors_query, labels_query, time_to_extract_features, train_time, parameters.LIST_ERROR, probability_vector
         return [], [], [], [], [], [], 0, train_time,parameters.LIST_ERROR
-    
+
     #to use the inception resnet trained with the imagenet
     elif(feature_extraction_method[0:10] == 'pretrained'):
-        
+
         parameters = Parameters(batch_size,name_images_database,labels_database,path_output,path_cnn_pre_trained,path_save_cnn,list_of_parameters,preprocessing_method)
 
         #get the time of extraction of features for the whole database
@@ -322,11 +322,11 @@ def cnn_feature_extraction(name_images_database,labels_database,name_images_quer
             #Calculating the time of the extraction of features for the whole database
             stop = timeit.default_timer()
         else:
-            
+
             if(feature_extraction_method[0:10] == 'pretrained'):
                 #feature_vectors_database, fname_database, labels_database = feature_extraction_cnn_pretrained.feature_extraction(name_images_database,labels_database,path_cnn_pre_trained, feature_extraction_method)
                 feature_vectors_database, fname_database, labels_database = keras_pre_trained.feature_extraction(name_images_database,labels_database,path_cnn_pre_trained, feature_extraction_method,parameters.IMAGE_SIZE1)
-            
+
             #Calculating the time of the extraction of features for the whole database
             stop = timeit.default_timer()
 
@@ -337,13 +337,13 @@ def cnn_feature_extraction(name_images_database,labels_database,name_images_quer
         time_of_extraction_features = (stop - start)
         parameters.NAME_IMAGES = name_images_query
         parameters.LABELS = labels_query
-        
+
         if(feature_extraction_method[0:10] == 'pretrained'):
             #feature_vectors_query, fname_query, labels_query  = feature_extraction_cnn_pretrained.feature_extraction(name_images_query,labels_query,path_cnn_pre_trained, feature_extraction_method)
             feature_vectors_query, fname_query, labels_query  = keras_pre_trained.feature_extraction(name_images_query,labels_query,path_cnn_pre_trained, feature_extraction_method,parameters.IMAGE_SIZE1)
-        
+
         return fname_database, feature_vectors_database, labels_database, fname_query, feature_vectors_query, labels_query, time_of_extraction_features, train_time,None, None
-    
+
 def run_command_line(fname_database,labels_database,fname_retrieval,labels_retrieval,path_cnn_pre_trained,path_save_cnn,path_output,feature_extraction_method,similarity_metric,retrieval_number,list_of_parameters,preprocessing_method, searching_method = 'bf', isEvaluation = False,do_searching_processing=True,save_csv=True):
 
     """
@@ -376,14 +376,14 @@ def run_command_line(fname_database,labels_database,fname_retrieval,labels_retri
     result : list
         list of all points between start and end
     """
-    
+
     probability_vector = []
 
     print('pyCBIR started!')
     train_time = 0
     if(feature_extraction_method == 'lenet' or feature_extraction_method[0:11] == 'fine_tuning' or feature_extraction_method[0:10] == 'pretrained'):
         fname_database,feature_vectors_database,labels_database,fname_retrieval,feature_vectors_retrieval,labels_retrieval, time_of_extraction_features, train_time, list_error, probability_vector = cnn_feature_extraction(fname_database,labels_database,fname_retrieval,labels_retrieval,path_cnn_pre_trained,path_save_cnn,path_output,feature_extraction_method,list_of_parameters,preprocessing_method,do_searching_processing,save_csv)
-        
+
     else:
         #Get the csv file
         #check if there is a file computed for this descriptor-distance
@@ -429,9 +429,9 @@ def run_command_line(fname_database,labels_database,fname_retrieval,labels_retri
 
         #computing features for the retrieval image(s)
         fname_retrieval,feature_vectors_retrieval,labels_retrieval = fe.descriptor_all_database(fname_retrieval,labels_retrieval,feature_extraction_method,list_of_parameters,preprocessing_method)
-        
-            
-    if(not do_searching_processing):   
+
+
+    if(not do_searching_processing):
         return [], [train_time,time_of_extraction_features], [], list_error
     #get the time of the retrieval of the query image
     start = timeit.default_timer()
@@ -452,6 +452,5 @@ def run_command_line(fname_database,labels_database,fname_retrieval,labels_retri
 
     else:
         return result, [train_time,time_of_extraction_features], time_of_retrieval_images
-    
+
     print('Results Generated!')
-    

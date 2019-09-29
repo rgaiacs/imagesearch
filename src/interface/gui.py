@@ -231,7 +231,7 @@ class Ui_pyCBIR(object):
         self.lineEdit2_glcm = QtWidgets.QLineEdit(self.mySubwindow)
         self.lineEdit2_glcm.setGeometry(QtCore.QRect(115, 50, 30, 16))
         self.lineEdit2_glcm.setObjectName("lineEdit")
-        self.lineEdit2_glcm.setText("16")
+        self.lineEdit2_glcm.setText("8")
 
         self.label4_glcm = QtWidgets.QLabel(self.mySubwindow)
         self.label4_glcm.setGeometry(QtCore.QRect(0, 70, 110, 16))

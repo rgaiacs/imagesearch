@@ -7,7 +7,7 @@ import numpy as np
 from skimage.feature import greycomatrix,greycoprops
 
 def glcm(imagem,name,label,d,grayLevels_new, grayLevels_old):
-    
+
     if grayLevels_new != grayLevels_old:
         imagem = categorizar(imagem,grayLevels_new,grayLevels_old)
     matrix0 = greycomatrix(imagem, [d], [0], levels=2**grayLevels_new,normed=True)
@@ -15,7 +15,7 @@ def glcm(imagem,name,label,d,grayLevels_new, grayLevels_old):
     matrix2 = greycomatrix(imagem, [d], [np.pi/2], levels=2**grayLevels_new,normed=True)
     matrix3 = greycomatrix(imagem, [d], [3*np.pi/4], levels=2**grayLevels_new,normed=True)
     matrix = (matrix0+matrix1+matrix2+matrix3)/4 #isotropic glcm
-    
+
     props = np.zeros((6))
     props[0] = greycoprops(matrix,'contrast')
     props[1] = greycoprops(matrix,'dissimilarity')
@@ -25,7 +25,7 @@ def glcm(imagem,name,label,d,grayLevels_new, grayLevels_old):
     props[5] = greycoprops(matrix,'ASM')
     return props,name,label
 
-#function to change the number of gray scale values 
+#function to change the number of gray scale values
 """
 def categorizar(imagem,nbits=8):
     L,C = imagem.shape;
