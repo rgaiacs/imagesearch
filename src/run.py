@@ -265,7 +265,7 @@ def cnn_feature_extraction(name_images_database,labels_database,name_images_quer
                 feature_vectors_database, fname_database, labels_database,probability_vector = keras_lenet.features_extraction_lenet(parameters)
             elif(feature_extraction_method[0:11] == 'fine_tuning'):
 #                feature_vectors_database, fname_database, labels_database,probability_vector = feature_extraction_after_fine_tuning.features_extraction_cnn(parameters)
-                feature_vectors_database, fname_database, labels_database, probability_vector = keras_fine_tuning.feature_extraction(name_images_database,labels_database,path_save_cnn, feature_extraction_method,parameters.NUM_CLASSES)
+                feature_vectors_database, fname_database, labels_database, probability_vector = keras_fine_tuning.feature_extraction(name_images_database,labels_database,path_save_cnn, feature_extraction_method,parameters.NUM_CLASSES,parameters.NEW_IMAGE_SIZE1)
 
             #Calculating the time of the extraction of features for the whole database
             stop = timeit.default_timer()
@@ -289,7 +289,7 @@ def cnn_feature_extraction(name_images_database,labels_database,name_images_quer
                 feature_vectors_query, fname_query, labels_query,probability_vector = keras_lenet.features_extraction_lenet(parameters)
             elif(feature_extraction_method[0:11] == "fine_tuning"):
                 #feature_vectors_query, fname_query, labels_query, probability_vector = feature_extraction_after_fine_tuning.features_extraction_cnn(parameters)
-                feature_vectors_query, fname_query, labels_query, probability_vector = keras_fine_tuning.feature_extraction(name_images_query,labels_query,path_save_cnn, feature_extraction_method,parameters.NUM_CLASSES)
+                feature_vectors_query, fname_query, labels_query, probability_vector = keras_fine_tuning.feature_extraction(name_images_query,labels_query,path_save_cnn, feature_extraction_method,parameters.NUM_CLASSES,parameters.NEW_IMAGE_SIZE1)
 
             return fname_database, feature_vectors_database, labels_database, fname_query, feature_vectors_query, labels_query, time_to_extract_features, train_time, parameters.LIST_ERROR, probability_vector
         return [], [], [], [], [], [], 0, train_time,parameters.LIST_ERROR

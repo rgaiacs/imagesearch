@@ -24,31 +24,34 @@ import numpy as np
 from keras.models import Model
 from src.cnn.keras_lenet import read_database
 
-def create_model(feature_extraction_method,num_classes):
+def create_model(feature_extraction_method,num_classes,path_cnn_pre_trained,input_size):
     
+    if(feature_extraction_method == 'fine_tuning_lenet'):
+        model = load_model(path_cnn_pre_trained)
+        input_image = input_size
     if(feature_extraction_method == 'fine_tuning_vgg16'):
         model = vgg16.VGG16(weights='imagenet', include_top=True)
-        layer_name = 'fc2'
+        #layer_name = 'fc2'
         input_image = 224
     elif(feature_extraction_method == 'fine_tuning_vgg19'):
         model = vgg19.VGG19(weights='imagenet', include_top=True)
-        layer_name = 'fc2'
+        #layer_name = 'fc2'
         input_image = 224
     elif(feature_extraction_method == 'fine_tuning_xception'):
         model = xception.Xception(weights='imagenet', include_top=True)
-        layer_name = 'avg_pool'
+        #layer_name = 'avg_pool'
         input_image = 299
     elif(feature_extraction_method == 'fine_tuning_resnet'):
         model = resnet.ResNet50(weights='imagenet', include_top=True)
-        layer_name = 'avg_pool'
+        #layer_name = 'avg_pool'
         input_image = 224
     elif(feature_extraction_method == 'fine_tuning_inception_resnet'):
         model = inception_resnet.InceptionResNetV2(weights='imagenet', include_top=True)
-        layer_name = 'avg_pool'
+        #layer_name = 'avg_pool'
         input_image = 299
     elif(feature_extraction_method == 'fine_tuning_nasnet'):
         model = nasnet.NASNetLarge(weights='imagenet', include_top=True)
-        layer_name = 'global_average_pooling2d_1'
+        #layer_name = 'global_average_pooling2d_1'
         input_image = 331
     
     #Removing the last layer 
@@ -58,22 +61,20 @@ def create_model(feature_extraction_method,num_classes):
     
     model.summary()
     
-    return model, input_image, layer_name
+    return model, input_image
 
 def fine_tuning_cnn(parameters):
-    model, input_image_size, _ = create_model(parameters.FEATURE_EXTRACTION_METHOD, parameters.NUM_CLASSES)
+    model, input_image_size = create_model(parameters.FEATURE_EXTRACTION_METHOD, parameters.NUM_CLASSES, parameters.PATH_CNN_PRE_TRAINED, parameters.IMAGE_SIZE1)
     parameters.NEW_IMAGE_SIZE1 = input_image_size
     parameters.NEW_IMAGE_SIZE2 = input_image_size
     
-    try:
-        if(parameters.PATH_CNN_PRE_TRAINED != ''):
-            model = load_model(parameters.PATH_CNN_PRE_TRAINED)
-            print("Model restored from " + parameters.PATH_CNN_PRE_TRAINED)
-        else:
-            print("Initializing model with ImageNet weights!")
-    except:
-        print("Initializing model with ImageNet weights!")
-        pass
+    #try:
+    #    if(parameters.PATH_CNN_PRE_TRAINED != ''):
+    #        model = load_model(parameters.PATH_CNN_PRE_TRAINED)
+    #        print("Model restored from " + parameters.PATH_CNN_PRE_TRAINED)
+    #except:
+    #    print("Initializing model with ImageNet weights!")
+    #    pass
     
     train_datagen = ImageDataGenerator(rescale=1./255)
      
@@ -93,12 +94,12 @@ def fine_tuning_cnn(parameters):
     
     model.save(parameters.PATH_SAVE_CNN)
     
-def feature_extraction(name_images,labels,path_model,feature_extraction_method, num_classes):
+def feature_extraction(name_images,labels,path_model,feature_extraction_method, num_classes,input_img_size):
     
-    _, input_img_size, layer_name = create_model(feature_extraction_method, num_classes)
+    #model, input_img_size = create_model(feature_extraction_method, num_classes)
     model = load_model(path_model)
     #To get the output of the CNN in the layer before the last
-    intermediate_layer_model = Model(inputs=model.input, outputs=model.get_layer(layer_name).output)
+    intermediate_layer_model = Model(inputs=model.input, outputs=model.layers[-2].output)
     
     features = []
     
@@ -114,25 +115,25 @@ def extract_feature_one_image(img_path,intermediate_layer_model,feature_extracti
     img = image.load_img(img_path, target_size=(input_img, input_img))
     img_data = image.img_to_array(img)
     img_data = np.expand_dims(img_data, axis=0)
-    
-    if(feature_extraction_method == 'fine_tuning_vgg16'):
-        #img_data = vgg16.preprocess_input(img_data)
-        img_data = img_data/255
-    elif(feature_extraction_method == 'fine_tuning_vgg19'):
-        #img_data = vgg19.preprocess_input(img_data)
-        img_data = img_data/255
-    elif(feature_extraction_method == 'fine_tuning_xception'):
-        #img_data = xception.preprocess_input(img_data)
-        img_data = img_data/255
-    elif(feature_extraction_method == 'fine_tuning_resnet'):
-        #img_data = resnet.preprocess_input(img_data)
-        img_data = img_data/255
-    elif(feature_extraction_method == 'fine_tuning_inception_resnet'):
-        #img_data = inception_resnet.preprocess_input(img_data)
-        img_data = img_data/255
-    elif(feature_extraction_method == 'fine_tuning_nasnet'):
-        #img_data = nasnet.preprocess_input(img_data)
-        img_data = img_data/255
+    img_data = img_data/255
+    #if(feature_extraction_method == 'fine_tuning_vgg16'):
+    #    #img_data = vgg16.preprocess_input(img_data)
+    #img_data = img_data/255
+    #elif(feature_extraction_method == 'fine_tuning_vgg19'):
+    #    #img_data = vgg19.preprocess_input(img_data)
+    #   img_data = img_data/255
+    #elif(feature_extraction_method == 'fine_tuning_xception'):
+    #    #img_data = xception.preprocess_input(img_data)
+    #    img_data = img_data/255
+    #elif(feature_extraction_method == 'fine_tuning_resnet'):
+    #   #img_data = resnet.preprocess_input(img_data)
+    #    img_data = img_data/255
+    #elif(feature_extraction_method == 'fine_tuning_inception_resnet'):
+    #    #img_data = inception_resnet.preprocess_input(img_data)
+    #    img_data = img_data/255
+    #elif(feature_extraction_method == 'fine_tuning_nasnet'):
+    #    #img_data = nasnet.preprocess_input(img_data)
+    #    img_data = img_data/255
         
     features = intermediate_layer_model.predict(img_data)
     features = features.reshape((-1))
