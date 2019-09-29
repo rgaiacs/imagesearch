@@ -9,6 +9,7 @@ Basic steps to run image searches:
 -	Install dependencies and activate env: 
 
 ` conda env create -n imagesearch -f environment.yml `
+
 ` conda activate imagesearch `
 
 -	Create experiment folders:
@@ -20,6 +21,7 @@ Basic steps to run image searches:
 -	Run main file to open user interface: 
 
 ` cd src/ `
+
 ` python pycbir.py `
 
 -	Need datasets? Download and test in your laptop: [[Cells]](https://drive.google.com/open?id=13Ee5D7IT4ZU63Hext3ZTqtExlRvgmJwM) [[GISAXs]](http://bit.ly/aimagesearch) [[MicroCT]](http://bit.ly/aimagesearch)
