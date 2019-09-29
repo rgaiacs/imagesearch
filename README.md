@@ -17,6 +17,11 @@ Search for scientific images using deep learning for computer vision
   - >> python pycbir.py  
 
 ## More about the project:
+### Developers
+- Flavio Araujo
+- Romuere Silva
+- Daniela Ushizima
+
 **Reference us please!** 
 This way we can continue doing social good for free!
 
