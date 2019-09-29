@@ -7,14 +7,15 @@ Search for scientific images using deep learning for computer vision
 ## Basic steps to run image searches:
 
 - Install dependencies:
+>> conda-env export -n imagesearch > environment.yml
 
-- Create experiment folder:
-  - *database*: one folder per image class
-  - *output*: keep models and visualizations
-  - *query*: images used as query to the model
+- Create experiment folders:
+  - *database/*: contains 1 folder per image class
+  - *output/*: contains outputs of models and search results images
+  - *query/*: contains query-images = 1 folder with all or 1 folder per image class
   
 - Run main file to open user interface:
-  - >> python pycbir.py  
+>> python src/pycbir.py  
 
 ## More about the project:
 ### Developers
