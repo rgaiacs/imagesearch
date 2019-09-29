@@ -493,7 +493,7 @@ class Ui_pyCBIR(object):
             if self.feature_extraction_method == 'pretrained_lenet':
                 QMessageBox.information(None,'pyCBIR', 'Now you have to choose the pre-trained file.')
                 cwd = os.getcwd()
-                self.path_cnn_pre_trained = QFileDialog.getOpenFileName(None,'Select the file of the pre-trained CNN: ', cwd,"Model Files (*.h5)")
+                self.path_cnn_pre_trained = QFileDialog.getOpenFileName(None,'Select the file of the pre-trained CNN: ', cwd,"Model Files (*.h5)")[0]
                 self.feature_extraction_method = 'pretrained_'+self.comboBox.currentText()
 
             else:

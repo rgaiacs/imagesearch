@@ -325,7 +325,7 @@ def cnn_feature_extraction(name_images_database,labels_database,name_images_quer
             
             if(feature_extraction_method[0:10] == 'pretrained'):
                 #feature_vectors_database, fname_database, labels_database = feature_extraction_cnn_pretrained.feature_extraction(name_images_database,labels_database,path_cnn_pre_trained, feature_extraction_method)
-                feature_vectors_database, fname_database, labels_database = keras_pre_trained.feature_extraction(name_images_database,labels_database,path_cnn_pre_trained, feature_extraction_method)
+                feature_vectors_database, fname_database, labels_database = keras_pre_trained.feature_extraction(name_images_database,labels_database,path_cnn_pre_trained, feature_extraction_method,parameters.IMAGE_SIZE1)
             
             #Calculating the time of the extraction of features for the whole database
             stop = timeit.default_timer()
@@ -340,7 +340,7 @@ def cnn_feature_extraction(name_images_database,labels_database,name_images_quer
         
         if(feature_extraction_method[0:10] == 'pretrained'):
             #feature_vectors_query, fname_query, labels_query  = feature_extraction_cnn_pretrained.feature_extraction(name_images_query,labels_query,path_cnn_pre_trained, feature_extraction_method)
-            feature_vectors_query, fname_query, labels_query  = keras_pre_trained.feature_extraction(name_images_query,labels_query,path_cnn_pre_trained, feature_extraction_method)
+            feature_vectors_query, fname_query, labels_query  = keras_pre_trained.feature_extraction(name_images_query,labels_query,path_cnn_pre_trained, feature_extraction_method,parameters.IMAGE_SIZE1)
         
         return fname_database, feature_vectors_database, labels_database, fname_query, feature_vectors_query, labels_query, time_of_extraction_features, train_time,None, None
     
