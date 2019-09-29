@@ -1,7 +1,7 @@
 ImageSearch
 ===========
 
-Search for scientific images using deep learning for computer vision - image recommendation - evaluation of feature extraction algorithms - user-friendly interface
+Search for scientific images using deep learning for computer vision with [[ImageSearch]](http://bit.ly/aimagesearch) - image recommendation - evaluation of feature extraction algorithms - user-friendly interface
 
 Basic steps to run image searches:
 ----------------------------------
@@ -16,9 +16,7 @@ Basic steps to run image searches:
 
 -	Run main file to open user interface: >> cd src/ >> python pycbir.py
 
--	Need a dataset? Check below, it will work in your laptop:
-
-	-	[[Cells]](https://drive.google.com/open?id=13Ee5D7IT4ZU63Hext3ZTqtExlRvgmJwM)
+-	Need datasets? Download and test in your laptop: [[Cells]](https://drive.google.com/open?id=13Ee5D7IT4ZU63Hext3ZTqtExlRvgmJwM) [[GISAXs]](http://bit.ly/aimagesearch) [[MicroCT]](http://bit.ly/aimagesearch)
 
 More about the project:
 -----------------------
@@ -37,21 +35,23 @@ This project aims to deploy a compact, yet useful package for performing content
 
 ![Interface PyCBIR](https://www.researchgate.net/profile/Daniela_Ushizima/publication/325554753/figure/fig5/AS:645121762680833@1530820422808/pyCBIR-interface-retrieval-options-left-with-feature-extraction-searching-method.ppm)
 
-## Contributing
- 
-1. Fork it!
-2. Create your feature branch: `git checkout -b my-new-feature`
-3. Commit your changes: `git commit -am 'Add some feature'`
-4. Push to the branch: `git push origin my-new-feature`
-5. Submit a pull request :D
- 
-## History
- 
-Version 0.4 (2019-09-28) - compatibility to TensorFlow 1.13
- 
+Contributing
+------------
 
-## License
- 
+1.	Fork it!
+2.	Create your feature branch: `git checkout -b my-new-feature`
+3.	Commit your changes: `git commit -am 'Add some feature'`
+4.	Push to the branch: `git push origin my-new-feature`
+5.	Submit a pull request :D
+
+History
+-------
+
+Version 0.4 (2019-09-28) - compatibility to TensorFlow 1.13
+
+License
+-------
+
 The MIT License (MIT)
 
 Copyright (c) 2019 Araujo, Silva and Ushizima
@@ -62,5 +62,7 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-## Claims
+Claims
+------
+
 This software contains work partially sponsored by the United States. While this document is believed to contain correct information, neither the United States Government nor any agency thereof, nor the Regents of the University of California, nor any of their employees, makes any warranty, express or implied, or assumes any legal responsibility for the accuracy, completeness, or usefulness of any information, apparatus, product, or process disclosed, or represents that its use would not infringe privately owned rights. Reference herein to any specific commercial product,process, or service by its trade name, trademark, manufacturer, or otherwise, does not necessarily constitute or imply its endorsement, recommendation, or favoring by the United States Government or any agency thereof, or theRegents of the University of California. The views and opinions of authors expressed herein do not necessarily state or reflect those of the United States Government or any agency thereof or the Regents of the University of California.
