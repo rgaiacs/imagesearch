@@ -6,11 +6,11 @@ Search for scientific images using deep learning for computer vision with [[Imag
 Basic steps to run image searches:
 ----------------------------------
 
--	Install dependencies and activate env: 
+-	Install dependencies and activate env:
 
-` conda env create -n imagesearch -f environment.yml `
+`conda env create -n imagesearch -f environment.yml`
 
-` conda activate imagesearch `
+`conda activate imagesearch`
 
 -	Create experiment folders:
 
@@ -18,13 +18,13 @@ Basic steps to run image searches:
 	-	*output/*: contains outputs of models and search results images
 	-	*query/*: contains query-images = 1 folder with all or 1 folder per image class
 
--	Run main file to open user interface: 
+-	Run main file to open user interface:
 
-` cd src/ `
+`cd src/`
 
-` python pycbir.py `
+`python pycbir.py`
 
--	Need datasets? Download and test in your laptop: [[Cells]](https://drive.google.com/open?id=13Ee5D7IT4ZU63Hext3ZTqtExlRvgmJwM) [[GISAXs]](http://bit.ly/aimagesearch) [[MicroCT]](http://bit.ly/aimagesearch)
+-	Need datasets? Download and test in your laptop: [[Cells]](https://drive.google.com/open?id=13Ee5D7IT4ZU63Hext3ZTqtExlRvgmJwM) [[GISAXs]](http://bit.ly/aimagesearch) [[MicroCT]](https://drive.google.com/open?id=13Ee5D7IT4ZU63Hext3ZTqtExlRvgmJwM)
 
 More about the project:
 -----------------------
