@@ -12,7 +12,7 @@ from sklearn.cluster import KMeans
 import os
 import sys
 sys.setrecursionlimit(1000000)
-#from sklearn.neighbors import LSHForest
+from sklearn.neighbors import BallTree
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -70,8 +70,8 @@ def searching(feature_vectors_database,feature_vectors_retrieval, labels_databas
                                 labels_database, fname_database, similarity_metric,
                                 retrieval_number, list_of_parameters, feature_extraction_method,
                                 path_output,searching_method)
-    elif searching_method == 'lsh':
-        return searching_bruteForce(feature_vectors_database,feature_vectors_retrieval,
+    elif searching_method == 'bt':
+        return searching_BallTree(feature_vectors_database,feature_vectors_retrieval,
                                     labels_database, fname_database, similarity_metric,
                                     retrieval_number, list_of_parameters, feature_extraction_method,
                                     path_output,searching_method)
@@ -148,25 +148,15 @@ def searching_RTree(feature_vectors_database,feature_vectors_retrieval, labels_d
 
     #feature_vectors_retrieval = preprocessing.scale(feature_vectors_retrieval)
 
-    if not(os.path.isfile(file+'.dat')):
+    if not(os.path.isfile(file)):
 
-        #normalize signatures
-        #feature_vectors_database = preprocessing.scale(feature_vectors_database)
+        tree = ckdtree.cKDTree(feature_vectors_database,leafsize=15048)
 
-        # Create a N-Dimensional index
-        p = index.Property()
-        p.dimension = feature_vectors_database.shape[1]
-        idx = index.Index(file,properties=p)
-
-        # Create the tree
-        for i,vector in enumerate(feature_vectors_database):
-            idx.add(i, vector.tolist())
-
+        with open(file, 'wb') as handle:
+            pickle.dump(tree, handle)
     else:
-        # Create a N-Dimensional index
-        p = index.Property()
-        p.dimension = feature_vectors_database.shape[1]
-        idx = Rtree(file,properties = p)
+        with open(file, 'rb') as handle:
+            tree = pickle.load(handle)
 
     # Find closests pair for the first N points
     ########### debug this part ###########
@@ -240,7 +230,7 @@ def searching_KDTree(feature_vectors_database,feature_vectors_retrieval, labels_
     return (result_filenames,result_labels)
 
 #this function is deprecated
-def searching_LSH(feature_vectors_database,feature_vectors_retrieval, labels_database,
+def searching_BallTree(feature_vectors_database,feature_vectors_retrieval, labels_database,
                   fname_database, similarity_metric, retrieval_number, list_of_parameters,
                   feature_extraction_method,path_output,searching_method):
 
@@ -250,23 +240,21 @@ def searching_LSH(feature_vectors_database,feature_vectors_retrieval, labels_dat
         for parameter in list_of_parameters:
             parameters_name = parameters_name + "_" + parameter
 
-    file = path_output + "LSH_" + feature_extraction_method + parameters_name +'_'+similarity_metric+'.pickle'
+    file = path_output + "BallTree_" + feature_extraction_method + parameters_name +'_'+similarity_metric+'.pickle'
 
     if not(os.path.isfile(file)):
 
-        lshf = LSHForest()
-        lshf.fit(feature_vectors_database)
-
+        bt = BallTree(feature_vectors_database)
+        
         with open(file, 'wb') as handle:
-            pickle.dump(lshf,handle)
+            pickle.dump(bt,handle)
     else:
         with open(file, 'rb') as handle:
-            lshf = pickle.load(handle)
+            bt = pickle.load(handle)
 
     # Find closests pair for the first N points
 
-    _,small_distances = lshf.kneighbors(feature_vectors_retrieval, retrieval_number)
-    print("passou small_distances")
+    _,small_distances = bt.query(feature_vectors_retrieval, retrieval_number)
     result_filenames = [] #file names
     result_labels = [] #labels
     for cont1,i in enumerate(small_distances):

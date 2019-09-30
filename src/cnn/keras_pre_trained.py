@@ -21,7 +21,9 @@ def extract_feature_one_image(img_path,intermediate_layer_model,feature_extracti
     img_data = image.img_to_array(img)
     img_data = np.expand_dims(img_data, axis=0)
     
-    if(feature_extraction_method == 'pretrained_vgg16'):
+    if(feature_extraction_method == 'pretrained_lenet'):
+        img_data = img_data/255
+    elif(feature_extraction_method == 'pretrained_vgg16'):
         img_data = vgg16.preprocess_input(img_data)
     elif(feature_extraction_method == 'pretrained_vgg19'):
         img_data = vgg19.preprocess_input(img_data)

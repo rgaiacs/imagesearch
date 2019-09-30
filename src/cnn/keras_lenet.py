@@ -185,6 +185,9 @@ def features_extraction_lenet(parameters):
 
     intermediate_layer_model = Model(inputs=model.input,
                                      outputs=model.layers[-2].output)
+    
+    #Normalizing
+    X_test = X_test/255
     feature_vectors_database = intermediate_layer_model.predict(X_test)    
 
     #features = pd.DataFrame(data=features)

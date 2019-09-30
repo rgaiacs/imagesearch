@@ -315,7 +315,7 @@ class Ui_pyCBIR(object):
         self.lineEdit1_lbp = QtWidgets.QLineEdit(self.mySubwindow)
         self.lineEdit1_lbp.setGeometry(QtCore.QRect(75, 30, 30, 16))
         self.lineEdit1_lbp.setObjectName("lineEdit")
-        self.lineEdit1_lbp.setText("2")
+        self.lineEdit1_lbp.setText("16")
 
         self.label3_lbp = QtWidgets.QLabel(self.mySubwindow)
         self.label3_lbp.setGeometry(QtCore.QRect(0, 50, 110, 16))
@@ -324,7 +324,7 @@ class Ui_pyCBIR(object):
         self.lineEdit2_lbp = QtWidgets.QLineEdit(self.mySubwindow)
         self.lineEdit2_lbp.setGeometry(QtCore.QRect(75, 50, 30, 16))
         self.lineEdit2_lbp.setObjectName("lineEdit")
-        self.lineEdit2_lbp.setText("16")
+        self.lineEdit2_lbp.setText("2")
 
 
         self.buttom_lbp = QtWidgets.QPushButton(self.mySubwindow)
@@ -674,7 +674,7 @@ class Ui_pyCBIR(object):
         elif self.radioButton_8.isChecked():
             searching_method = 'kd'
         elif self.radioButton_9.isChecked():
-            searching_method = 'rt'
+            searching_method = 'bt'
 
         retrieval_number = int(self.lineEdit.text())
 
@@ -718,7 +718,7 @@ class Ui_pyCBIR(object):
         self.groupBox_2.setTitle(_translate("pyCBIR", "Searching"))
         self.radioButton_7.setText(_translate("pyCBIR", "Brute Force"))
         self.radioButton_8.setText(_translate("pyCBIR", "KDTree"))
-        self.radioButton_9.setText(_translate("pyCBIR", "RTree"))
+        self.radioButton_9.setText(_translate("pyCBIR", "BallTree"))
         self.groupBox_3.setTitle(_translate("pyCBIR", "Retrieval Options"))
         self.label.setText(_translate("pyCBIR", "Retrieval Number:"))
         self.groupBox_4.setTitle(_translate("pyCBIR", "By Folder"))
