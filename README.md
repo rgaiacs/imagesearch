@@ -47,7 +47,7 @@ Araujo, Silva, Ushizima, Parkinson, Hexemer, Carneiro, Medeiros, **"Reverse Imag
 
 This project aims to deploy a compact, yet useful app for content based image retrieval in python. Details about applications to images across domains can be found in this reference [[full paper]](https://www.researchgate.net/publication/325554753_Reverse_image_search_for_scientific_data_within_and_beyond_the_visible_spectrum/figures?lo=1)
 
-<img src="www/gui_imagesearch.png" width="200">
+<img src="www/gui_imagesearch.png" width="400">
 
 Contributing
 ------------
