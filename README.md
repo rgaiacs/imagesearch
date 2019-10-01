@@ -1,7 +1,11 @@
 ImageSearch
 ===========
 
-Search for scientific images using deep learning for computer vision with [[ImageSearch]](http://bit.ly/aimagesearch) - image recommendation - evaluation of feature extraction algorithms - user-friendly interface
+Search for scientific images using deep learning with [[ImageSearch]](http://bit.ly/aimagesearch)
+
+-	image recommendation system
+-	evaluation of feature extraction algorithms
+-	user-friendly interface
 
 Basic steps to run image searches:
 ----------------------------------
@@ -26,7 +30,7 @@ Basic steps to run image searches:
 
 -	Need datasets? Download and test in your laptop: [[Cells]](https://drive.google.com/open?id=13Ee5D7IT4ZU63Hext3ZTqtExlRvgmJwM) [[MicroCT]](https://drive.google.com/open?id=13Ee5D7IT4ZU63Hext3ZTqtExlRvgmJwM) [[GISAXs]](http://bit.ly/aimagesearch)
 
--	It will blow your mind and, with large images, your computer memory!
+-	It will blow your mind and, with large images, your laptop memory!
 
 More about the project:
 -----------------------
