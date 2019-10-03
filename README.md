@@ -1,53 +1,61 @@
 ImageSearch
 ===========
 
-Search for scientific images using deep learning with [[ImageSearch]](http://bit.ly/aimagesearch)
+<img src="www/gui_imagesearch.png" width="400">
+
+Search for scientific images using deep learning.
+
+This project aims to deploy a compact, yet useful app for content based image retrieval in Python. Details about applications to images across domains can be found in this reference [paper](https://www.researchgate.net/publication/325554753_Reverse_image_search_for_scientific_data_within_and_beyond_the_visible_spectrum/figures?lo=1).
+
+Features
+--------
 
 -	image recommendation system
 -	evaluation of feature extraction algorithms
 -	user-friendly interface
 
-Basic steps to run image searches:
-----------------------------------
+Basic steps to run ImageSearch
+------------------------------
 
--	Install dependencies and activate env:
+1.	Install dependencies and activate env:
 
 	`conda env create -n imagesearch -f environment.yml`
 
 	`conda activate imagesearch`
 
--	Create experiment folders:
+2.	Create experiment folders:
 
 	-	*database/*: contains 1 folder per image class
 	-	*output/*: contains outputs of models and search results images
 	-	*query/*: contains query-images = 1 folder with all or 1 folder per image class
 
--	Run main file to open user interface:
+3.	Run main file to open user interface:
 
 	`cd src/`
 
 	`python pycbir.py`
 
--	Need datasets? Download and test in your laptop: [[Cells]](https://drive.google.com/open?id=13Ee5D7IT4ZU63Hext3ZTqtExlRvgmJwM) [[MicroCT]](https://drive.google.com/open?id=13Ee5D7IT4ZU63Hext3ZTqtExlRvgmJwM) [[GISAXs]](http://bit.ly/aimagesearch)
+Need datasets to test it? Download 
 
--	It will blow your mind and, with large images, your laptop memory!
+- [Cells](https://drive.google.com/open?id=13Ee5D7IT4ZU63Hext3ZTqtExlRvgmJwM)
+- [MicroCT](https://drive.google.com/open?id=13Ee5D7IT4ZU63Hext3ZTqtExlRvgmJwM)
+- [GISAXs](http://bit.ly/aimagesearch)
 
-More about the project:
------------------------
+It will blow your mind and, with large images, your laptop memory!
 
-### Developers
+Developers
+----------
 
 -	Flavio Araujo
 -	Romuere Silva
 -	Daniela Ushizima
 
-**Reference us please!** This way we can continue doing social good for free!
+Reference us
+------------
 
-Araujo, Silva, Ushizima, Parkinson, Hexemer, Carneiro, Medeiros, **"Reverse Image Search for Scientific Data within and beyond the Visible Spectrum", Expert Systems and Applications** 2018 [[bib]](https://dblp.uni-trier.de/pers/hb/u/Ushizima:Daniela)
+> Araujo, Silva, Ushizima, Parkinson, Hexemer, Carneiro, Medeiros, **"Reverse Image Search for Scientific Data within and beyond the Visible Spectrum", Expert Systems and Applications** 2018
 
-This project aims to deploy a compact, yet useful app for content based image retrieval in python. Details about applications to images across domains can be found in this reference [[full paper]](https://www.researchgate.net/publication/325554753_Reverse_image_search_for_scientific_data_within_and_beyond_the_visible_spectrum/figures?lo=1)
-
-<img src="www/gui_imagesearch.png" width="400">
+BibTeX entry is available at [dblp](https://dblp.uni-trier.de/pers/hb/u/Ushizima:Daniela).
 
 Contributing
 ------------
