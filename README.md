@@ -12,7 +12,7 @@ Basic steps to run image searches:
 
 -	Install dependencies and activate env:
 
-	`conda env create -n imagesearch -f environment.yml`
+	`conda env create -n imagesearch -f environment.yaml`
 
 	`conda activate imagesearch`
 
