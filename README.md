@@ -1,7 +1,7 @@
 ImageSearch
 ===========
 
-Search for scientific images using deep learning with [[ImageSearch]](http://bit.ly/aimagesearch)
+Search for scientific images using deep learning with [[ImageSearch]](http://bit.ly/aimagesearch), the last packaging of pyCBIR:
 
 -	image recommendation system
 -	evaluation of feature extraction algorithms
